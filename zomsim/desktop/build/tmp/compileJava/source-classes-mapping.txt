@@ -1,0 +1,2 @@
+dev/ferex/zomsim/desktop/DesktopLauncher.java
+ dev.ferex.zomsim.desktop.DesktopLauncher

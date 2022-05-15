@@ -1,0 +1,2018 @@
+
+Player.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 2, 2
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 13
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 295, 2
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 3
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 588, 2
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 8
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 881, 2
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 10
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 1174, 2
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 0
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 1467, 2
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 5
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 362, 1680
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 6
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 722, 1680
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 14
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 2, 1325
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 3
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 2, 970
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 11
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 2, 260
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 8
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 362, 615
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 0
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 362, 260
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 5
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 722, 1325
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 13
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 1082, 1325
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 2
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 1442, 1325
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 10
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 1082, 615
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 7
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 1442, 615
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 4
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 1442, 260
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 12
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 2, 1680
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 0
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 1082, 1680
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 5
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 1442, 1680
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 14
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 2, 615
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 2
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 362, 1325
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 11
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 362, 970
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 7
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 722, 970
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 4
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 722, 615
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 13
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 722, 260
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 9
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 1082, 970
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 1
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 1082, 260
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 10
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 1442, 970
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 6
+survivor-move_knife
+  rotate: false
+  xy: 1760, 39
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 15
+
+Player2.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+survivor-idle_handgun
+  rotate: false
+  xy: 1212, 2
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 10
+survivor-idle_handgun
+  rotate: false
+  xy: 1467, 2
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 3
+survivor-idle_handgun
+  rotate: false
+  xy: 1467, 2
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 17
+survivor-idle_handgun
+  rotate: false
+  xy: 1722, 2
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 15
+survivor-idle_handgun
+  rotate: false
+  xy: 1722, 2
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 5
+survivor-idle_knife
+  rotate: false
+  xy: 1212, 220
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 10
+survivor-idle_knife
+  rotate: false
+  xy: 1503, 220
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 3
+survivor-idle_knife
+  rotate: false
+  xy: 1503, 220
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 17
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 1715, 1186
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 12
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 333, 559
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 2
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 333, 301
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 7
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 333, 43
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 14
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 626, 446
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 4
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 626, 188
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 9
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 919, 446
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 11
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 919, 188
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 1
+survivor-meleeattack_handgun
+  rotate: false
+  xy: 1212, 446
+  size: 291, 256
+  orig: 291, 256
+  offset: 0, 0
+  index: 6
+survivor-meleeattack_knife
+  rotate: false
+  xy: 722, 1746
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 6
+survivor-meleeattack_knife
+  rotate: false
+  xy: 2, 681
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 3
+survivor-meleeattack_knife
+  rotate: false
+  xy: 362, 1036
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 14
+survivor-meleeattack_knife
+  rotate: false
+  xy: 722, 1444
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 8
+survivor-meleeattack_knife
+  rotate: false
+  xy: 1053, 1746
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 0
+survivor-meleeattack_knife
+  rotate: false
+  xy: 2, 379
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 11
+survivor-meleeattack_knife
+  rotate: false
+  xy: 1053, 1444
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 5
+survivor-meleeattack_knife
+  rotate: false
+  xy: 1384, 1746
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 2
+survivor-meleeattack_knife
+  rotate: false
+  xy: 2, 77
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 13
+survivor-meleeattack_knife
+  rotate: false
+  xy: 1384, 1444
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 7
+survivor-meleeattack_knife
+  rotate: false
+  xy: 1715, 1746
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 10
+survivor-meleeattack_knife
+  rotate: false
+  xy: 1715, 1444
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 4
+survivor-meleeattack_knife
+  rotate: false
+  xy: 722, 1142
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 9
+survivor-meleeattack_knife
+  rotate: false
+  xy: 1053, 1142
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 1
+survivor-meleeattack_knife
+  rotate: false
+  xy: 1384, 1142
+  size: 329, 300
+  orig: 329, 300
+  offset: 0, 0
+  index: 12
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 2, 1338
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 9
+survivor-meleeattack_rifle
+  rotate: false
+  xy: 362, 1338
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 1
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 2, 1693
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 3
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 362, 1693
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 12
+survivor-meleeattack_shotgun
+  rotate: false
+  xy: 2, 983
+  size: 358, 353
+  orig: 358, 353
+  offset: 0, 0
+  index: 8
+survivor-move_knife
+  rotate: false
+  xy: 1767, 965
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 3
+survivor-move_knife
+  rotate: false
+  xy: 1767, 744
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 12
+survivor-move_knife
+  rotate: false
+  xy: 1767, 523
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 8
+survivor-reload_handgun
+  rotate: false
+  xy: 1505, 472
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 14
+survivor-reload_rifle
+  rotate: false
+  xy: 693, 923
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 12
+survivor-reload_rifle
+  rotate: false
+  xy: 362, 817
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 9
+survivor-reload_rifle
+  rotate: false
+  xy: 686, 704
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 1
+survivor-reload_rifle
+  rotate: false
+  xy: 1010, 704
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 17
+survivor-reload_shotgun
+  rotate: false
+  xy: 1017, 923
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 6
+survivor-reload_shotgun
+  rotate: false
+  xy: 1341, 923
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 10
+survivor-reload_shotgun
+  rotate: false
+  xy: 1334, 704
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 15
+
+Player3.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+survivor-idle_knife
+  rotate: false
+  xy: 526, 926
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 15
+survivor-idle_knife
+  rotate: false
+  xy: 526, 926
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 5
+survivor-idle_knife
+  rotate: false
+  xy: 788, 1158
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 8
+survivor-idle_knife
+  rotate: false
+  xy: 788, 1158
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 12
+survivor-idle_knife
+  rotate: false
+  xy: 526, 700
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 0
+survivor-idle_knife
+  rotate: false
+  xy: 526, 474
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 2
+survivor-idle_knife
+  rotate: false
+  xy: 526, 474
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 18
+survivor-idle_knife
+  rotate: false
+  xy: 526, 248
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 14
+survivor-idle_knife
+  rotate: false
+  xy: 526, 248
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 6
+survivor-idle_knife
+  rotate: false
+  xy: 579, 22
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 7
+survivor-idle_knife
+  rotate: false
+  xy: 579, 22
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 13
+survivor-idle_knife
+  rotate: false
+  xy: 817, 531
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 19
+survivor-idle_knife
+  rotate: false
+  xy: 817, 531
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 1
+survivor-idle_knife
+  rotate: false
+  xy: 817, 305
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 11
+survivor-idle_knife
+  rotate: false
+  xy: 817, 305
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 9
+survivor-idle_knife
+  rotate: false
+  xy: 870, 79
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 4
+survivor-idle_knife
+  rotate: false
+  xy: 870, 79
+  size: 289, 224
+  orig: 289, 224
+  offset: 0, 0
+  index: 16
+survivor-idle_rifle
+  rotate: false
+  xy: 264, 2
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 15
+survivor-idle_rifle
+  rotate: false
+  xy: 264, 2
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 5
+survivor-idle_rifle
+  rotate: false
+  xy: 1727, 1175
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 2
+survivor-idle_rifle
+  rotate: false
+  xy: 1727, 1175
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 18
+survivor-idle_shotgun
+  rotate: false
+  xy: 1727, 966
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 9
+survivor-idle_shotgun
+  rotate: false
+  xy: 1727, 966
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 11
+survivor-idle_shotgun
+  rotate: false
+  xy: 1727, 757
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 19
+survivor-idle_shotgun
+  rotate: false
+  xy: 1727, 757
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 1
+survivor-move_handgun
+  rotate: false
+  xy: 817, 936
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 13
+survivor-move_handgun
+  rotate: false
+  xy: 817, 936
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 7
+survivor-move_handgun
+  rotate: false
+  xy: 1108, 535
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 9
+survivor-move_handgun
+  rotate: false
+  xy: 1108, 535
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 11
+survivor-move_handgun
+  rotate: false
+  xy: 1108, 313
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 18
+survivor-move_handgun
+  rotate: false
+  xy: 1108, 313
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 2
+survivor-move_handgun
+  rotate: false
+  xy: 1161, 67
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 1
+survivor-move_handgun
+  rotate: false
+  xy: 1161, 67
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 19
+survivor-move_handgun
+  rotate: false
+  xy: 1421, 67
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 10
+survivor-reload_handgun
+  rotate: false
+  xy: 2, 1590
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 8
+survivor-reload_handgun
+  rotate: false
+  xy: 2, 1358
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 0
+survivor-reload_handgun
+  rotate: false
+  xy: 2, 1126
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 5
+survivor-reload_handgun
+  rotate: false
+  xy: 2, 894
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 11
+survivor-reload_handgun
+  rotate: false
+  xy: 2, 662
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 2
+survivor-reload_handgun
+  rotate: false
+  xy: 2, 430
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 7
+survivor-reload_handgun
+  rotate: false
+  xy: 2, 198
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 13
+survivor-reload_handgun
+  rotate: false
+  xy: 264, 1371
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 4
+survivor-reload_handgun
+  rotate: false
+  xy: 264, 1139
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 10
+survivor-reload_handgun
+  rotate: false
+  xy: 264, 907
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 9
+survivor-reload_handgun
+  rotate: false
+  xy: 264, 675
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 1
+survivor-reload_handgun
+  rotate: false
+  xy: 264, 443
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 6
+survivor-reload_handgun
+  rotate: false
+  xy: 264, 211
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 12
+survivor-reload_handgun
+  rotate: false
+  xy: 526, 1152
+  size: 260, 230
+  orig: 260, 230
+  offset: 0, 0
+  index: 3
+survivor-reload_rifle
+  rotate: false
+  xy: 326, 1822
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 6
+survivor-reload_rifle
+  rotate: false
+  xy: 650, 1822
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 14
+survivor-reload_rifle
+  rotate: false
+  xy: 1622, 1822
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 3
+survivor-reload_rifle
+  rotate: false
+  xy: 588, 1603
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 19
+survivor-reload_rifle
+  rotate: false
+  xy: 1236, 1603
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 11
+survivor-reload_rifle
+  rotate: false
+  xy: 579, 1384
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 8
+survivor-reload_rifle
+  rotate: false
+  xy: 903, 1384
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 0
+survivor-reload_rifle
+  rotate: false
+  xy: 1227, 1384
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 16
+survivor-reload_rifle
+  rotate: false
+  xy: 1403, 1165
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 5
+survivor-reload_rifle
+  rotate: false
+  xy: 1403, 946
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 13
+survivor-reload_rifle
+  rotate: false
+  xy: 1368, 508
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 2
+survivor-reload_rifle
+  rotate: false
+  xy: 1368, 289
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 18
+survivor-reload_rifle
+  rotate: false
+  xy: 1692, 100
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 7
+survivor-reload_shotgun
+  rotate: false
+  xy: 2, 1822
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 3
+survivor-reload_shotgun
+  rotate: false
+  xy: 974, 1822
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 12
+survivor-reload_shotgun
+  rotate: false
+  xy: 1298, 1822
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 8
+survivor-reload_shotgun
+  rotate: false
+  xy: 264, 1603
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 0
+survivor-reload_shotgun
+  rotate: false
+  xy: 912, 1603
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 17
+survivor-reload_shotgun
+  rotate: false
+  xy: 1560, 1603
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 5
+survivor-reload_shotgun
+  rotate: false
+  xy: 1551, 1384
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 14
+survivor-reload_shotgun
+  rotate: false
+  xy: 1079, 1165
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 2
+survivor-reload_shotgun
+  rotate: false
+  xy: 1079, 946
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 19
+survivor-reload_shotgun
+  rotate: false
+  xy: 1368, 727
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 7
+survivor-reload_shotgun
+  rotate: false
+  xy: 1692, 538
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 11
+survivor-reload_shotgun
+  rotate: false
+  xy: 1692, 319
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 16
+
+Player4.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+survivor-idle_handgun
+  rotate: false
+  xy: 824, 1140
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 8
+survivor-idle_handgun
+  rotate: false
+  xy: 824, 1140
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 12
+survivor-idle_handgun
+  rotate: false
+  xy: 824, 922
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 0
+survivor-idle_handgun
+  rotate: false
+  xy: 824, 704
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 2
+survivor-idle_handgun
+  rotate: false
+  xy: 824, 704
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 18
+survivor-idle_handgun
+  rotate: false
+  xy: 824, 486
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 14
+survivor-idle_handgun
+  rotate: false
+  xy: 824, 486
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 6
+survivor-idle_handgun
+  rotate: false
+  xy: 888, 268
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 7
+survivor-idle_handgun
+  rotate: false
+  xy: 888, 268
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 13
+survivor-idle_handgun
+  rotate: false
+  xy: 888, 50
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 19
+survivor-idle_handgun
+  rotate: false
+  xy: 888, 50
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 1
+survivor-idle_handgun
+  rotate: false
+  xy: 1079, 706
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 11
+survivor-idle_handgun
+  rotate: false
+  xy: 1079, 706
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 9
+survivor-idle_handgun
+  rotate: false
+  xy: 1079, 488
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 4
+survivor-idle_handgun
+  rotate: false
+  xy: 1079, 488
+  size: 253, 216
+  orig: 253, 216
+  offset: 0, 0
+  index: 16
+survivor-idle_rifle
+  rotate: false
+  xy: 888, 1567
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 7
+survivor-idle_rifle
+  rotate: false
+  xy: 888, 1567
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 13
+survivor-idle_rifle
+  rotate: false
+  xy: 1203, 1567
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 12
+survivor-idle_rifle
+  rotate: false
+  xy: 1203, 1567
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 8
+survivor-idle_rifle
+  rotate: false
+  xy: 1203, 1358
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 17
+survivor-idle_rifle
+  rotate: false
+  xy: 1203, 1358
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 3
+survivor-idle_rifle
+  rotate: false
+  xy: 1518, 1358
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 4
+survivor-idle_rifle
+  rotate: false
+  xy: 1518, 1358
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 16
+survivor-idle_rifle
+  rotate: false
+  xy: 1143, 940
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 9
+survivor-idle_rifle
+  rotate: false
+  xy: 1143, 940
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 11
+survivor-idle_rifle
+  rotate: false
+  xy: 1458, 940
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 14
+survivor-idle_rifle
+  rotate: false
+  xy: 1458, 940
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 6
+survivor-idle_rifle
+  rotate: false
+  xy: 1334, 731
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 1
+survivor-idle_rifle
+  rotate: false
+  xy: 1334, 731
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 19
+survivor-idle_rifle
+  rotate: false
+  xy: 1400, 88
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 0
+survivor-idle_rifle
+  rotate: false
+  xy: 1715, 88
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 10
+survivor-idle_shotgun
+  rotate: false
+  xy: 1518, 1567
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 6
+survivor-idle_shotgun
+  rotate: false
+  xy: 1518, 1567
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 14
+survivor-idle_shotgun
+  rotate: false
+  xy: 888, 1358
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 16
+survivor-idle_shotgun
+  rotate: false
+  xy: 888, 1358
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 4
+survivor-idle_shotgun
+  rotate: false
+  xy: 1143, 1149
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 3
+survivor-idle_shotgun
+  rotate: false
+  xy: 1143, 1149
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 17
+survivor-idle_shotgun
+  rotate: false
+  xy: 1458, 1149
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 13
+survivor-idle_shotgun
+  rotate: false
+  xy: 1458, 1149
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 7
+survivor-idle_shotgun
+  rotate: false
+  xy: 1649, 715
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 8
+survivor-idle_shotgun
+  rotate: false
+  xy: 1649, 715
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 12
+survivor-idle_shotgun
+  rotate: false
+  xy: 1334, 522
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 18
+survivor-idle_shotgun
+  rotate: false
+  xy: 1334, 522
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 2
+survivor-idle_shotgun
+  rotate: false
+  xy: 1649, 506
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 0
+survivor-idle_shotgun
+  rotate: false
+  xy: 1334, 313
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 10
+survivor-idle_shotgun
+  rotate: false
+  xy: 1649, 297
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 5
+survivor-idle_shotgun
+  rotate: false
+  xy: 1649, 297
+  size: 313, 207
+  orig: 313, 207
+  offset: 0, 0
+  index: 15
+survivor-move_handgun
+  rotate: false
+  xy: 2, 1554
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 6
+survivor-move_handgun
+  rotate: false
+  xy: 2, 1554
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 14
+survivor-move_handgun
+  rotate: false
+  xy: 2, 1332
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 15
+survivor-move_handgun
+  rotate: false
+  xy: 2, 1332
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 5
+survivor-move_handgun
+  rotate: false
+  xy: 2, 1110
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 3
+survivor-move_handgun
+  rotate: false
+  xy: 2, 1110
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 17
+survivor-move_handgun
+  rotate: false
+  xy: 2, 888
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 12
+survivor-move_handgun
+  rotate: false
+  xy: 2, 888
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 8
+survivor-move_handgun
+  rotate: false
+  xy: 2, 666
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 0
+survivor-move_handgun
+  rotate: false
+  xy: 2, 444
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 16
+survivor-move_handgun
+  rotate: false
+  xy: 2, 444
+  size: 258, 220
+  orig: 258, 220
+  offset: 0, 0
+  index: 4
+survivor-move_knife
+  rotate: false
+  xy: 2, 223
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 0
+survivor-move_knife
+  rotate: false
+  xy: 2, 2
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 17
+survivor-move_knife
+  rotate: false
+  xy: 262, 1555
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 5
+survivor-move_knife
+  rotate: false
+  xy: 262, 1334
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 14
+survivor-move_knife
+  rotate: false
+  xy: 262, 1113
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 2
+survivor-move_knife
+  rotate: false
+  xy: 262, 892
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 19
+survivor-move_knife
+  rotate: false
+  xy: 262, 671
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 11
+survivor-move_knife
+  rotate: false
+  xy: 262, 450
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 7
+survivor-move_knife
+  rotate: false
+  xy: 283, 229
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 16
+survivor-move_knife
+  rotate: false
+  xy: 283, 8
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 4
+survivor-move_knife
+  rotate: false
+  xy: 543, 1555
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 13
+survivor-move_knife
+  rotate: false
+  xy: 543, 1334
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 9
+survivor-move_knife
+  rotate: false
+  xy: 543, 1113
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 1
+survivor-move_knife
+  rotate: false
+  xy: 543, 892
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 18
+survivor-move_knife
+  rotate: false
+  xy: 543, 671
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 10
+survivor-move_knife
+  rotate: false
+  xy: 543, 450
+  size: 279, 219
+  orig: 279, 219
+  offset: 0, 0
+  index: 6
+survivor-reload_rifle
+  rotate: false
+  xy: 2, 1776
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 10
+survivor-reload_rifle
+  rotate: false
+  xy: 650, 1776
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 15
+survivor-reload_rifle
+  rotate: false
+  xy: 564, 231
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 4
+survivor-reload_shotgun
+  rotate: false
+  xy: 326, 1776
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 4
+survivor-reload_shotgun
+  rotate: false
+  xy: 974, 1776
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 13
+survivor-reload_shotgun
+  rotate: false
+  xy: 1298, 1776
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 9
+survivor-reload_shotgun
+  rotate: false
+  xy: 1622, 1776
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 1
+survivor-reload_shotgun
+  rotate: false
+  xy: 564, 12
+  size: 322, 217
+  orig: 322, 217
+  offset: 0, 0
+  index: 18
+survivor-shoot_handgun
+  rotate: false
+  xy: 1773, 1141
+  size: 255, 215
+  orig: 255, 215
+  offset: 0, 0
+  index: 2
+survivor-shoot_handgun
+  rotate: false
+  xy: 1773, 924
+  size: 255, 215
+  orig: 255, 215
+  offset: 0, 0
+  index: 1
+survivor-shoot_handgun
+  rotate: false
+  xy: 1143, 80
+  size: 255, 215
+  orig: 255, 215
+  offset: 0, 0
+  index: 0
+
+Player5.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+survivor-move_rifle
+  rotate: false
+  xy: 2, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 2
+survivor-move_rifle
+  rotate: false
+  xy: 2, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 18
+survivor-move_rifle
+  rotate: false
+  xy: 2, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 12
+survivor-move_rifle
+  rotate: false
+  xy: 2, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 8
+survivor-move_rifle
+  rotate: false
+  xy: 317, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 7
+survivor-move_rifle
+  rotate: false
+  xy: 317, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 13
+survivor-move_rifle
+  rotate: false
+  xy: 632, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 17
+survivor-move_rifle
+  rotate: false
+  xy: 632, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 3
+survivor-move_rifle
+  rotate: false
+  xy: 947, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 4
+survivor-move_rifle
+  rotate: false
+  xy: 947, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 16
+survivor-move_rifle
+  rotate: false
+  xy: 2, 626
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 14
+survivor-move_rifle
+  rotate: false
+  xy: 2, 626
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 6
+survivor-move_rifle
+  rotate: false
+  xy: 632, 1042
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 9
+survivor-move_rifle
+  rotate: false
+  xy: 632, 1042
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 11
+survivor-move_rifle
+  rotate: false
+  xy: 947, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 19
+survivor-move_rifle
+  rotate: false
+  xy: 947, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 1
+survivor-move_rifle
+  rotate: false
+  xy: 1262, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 0
+survivor-move_rifle
+  rotate: false
+  xy: 1577, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 10
+survivor-move_rifle
+  rotate: false
+  xy: 2, 210
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 5
+survivor-move_rifle
+  rotate: false
+  xy: 2, 210
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 15
+survivor-move_shotgun
+  rotate: false
+  xy: 317, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 7
+survivor-move_shotgun
+  rotate: false
+  xy: 317, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 13
+survivor-move_shotgun
+  rotate: false
+  xy: 2, 1042
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 18
+survivor-move_shotgun
+  rotate: false
+  xy: 2, 1042
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 2
+survivor-move_shotgun
+  rotate: false
+  xy: 2, 834
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 10
+survivor-move_shotgun
+  rotate: false
+  xy: 317, 1042
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 4
+survivor-move_shotgun
+  rotate: false
+  xy: 317, 1042
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 16
+survivor-move_shotgun
+  rotate: false
+  xy: 632, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 15
+survivor-move_shotgun
+  rotate: false
+  xy: 632, 1250
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 5
+survivor-move_shotgun
+  rotate: false
+  xy: 317, 834
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 9
+survivor-move_shotgun
+  rotate: false
+  xy: 317, 834
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 11
+survivor-move_shotgun
+  rotate: false
+  xy: 1262, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 1
+survivor-move_shotgun
+  rotate: false
+  xy: 1262, 1458
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 19
+survivor-move_shotgun
+  rotate: false
+  xy: 2, 418
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 12
+survivor-move_shotgun
+  rotate: false
+  xy: 2, 418
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 8
+survivor-move_shotgun
+  rotate: false
+  xy: 317, 626
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 6
+survivor-move_shotgun
+  rotate: false
+  xy: 317, 626
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 14
+survivor-move_shotgun
+  rotate: false
+  xy: 632, 834
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 17
+survivor-move_shotgun
+  rotate: false
+  xy: 632, 834
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 3
+survivor-move_shotgun
+  rotate: false
+  xy: 947, 1042
+  size: 313, 206
+  orig: 313, 206
+  offset: 0, 0
+  index: 0
+survivor-shoot_rifle
+  rotate: false
+  xy: 317, 418
+  size: 312, 206
+  orig: 312, 206
+  offset: 0, 0
+  index: 1
+survivor-shoot_rifle
+  rotate: false
+  xy: 947, 834
+  size: 312, 206
+  orig: 312, 206
+  offset: 0, 0
+  index: 0
+survivor-shoot_rifle
+  rotate: false
+  xy: 1577, 1250
+  size: 312, 206
+  orig: 312, 206
+  offset: 0, 0
+  index: 2
+survivor-shoot_shotgun
+  rotate: false
+  xy: 632, 626
+  size: 312, 206
+  orig: 312, 206
+  offset: 0, 0
+  index: 1
+survivor-shoot_shotgun
+  rotate: false
+  xy: 1262, 1042
+  size: 312, 206
+  orig: 312, 206
+  offset: 0, 0
+  index: 0
+survivor-shoot_shotgun
+  rotate: false
+  xy: 2, 2
+  size: 312, 206
+  orig: 312, 206
+  offset: 0, 0
+  index: 2

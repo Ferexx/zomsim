@@ -1,0 +1,21 @@
+
+// ANY CHANGES TO THIS REQUIRES MVN PACKAGE + COPY / PASTE
+
+agent Zombie {
+    module Console C;
+    module zomlink.ZombieModule Z;
+
+    rule +!main([zomlink.ZombieListener listener]) {
+        C.println("Hello World, ASTRA");
+        Z.linkZombie(listener);
+    }
+
+    rule $Z.event(string type, [float x, float y]) {
+        C.println("type = " + type + " / x = " +  x + " / y = " + y);
+    }
+
+    rule $Z.event(string type) {
+         C.println("type = " + type);
+         Z.chasePlayer();
+    }
+}

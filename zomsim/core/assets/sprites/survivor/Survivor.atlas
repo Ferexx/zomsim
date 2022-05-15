@@ -1,0 +1,286 @@
+
+Survivor.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+survivor-idle_flashlight
+  rotate: false
+  xy: 1537, 1625
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 14
+survivor-idle_flashlight
+  rotate: false
+  xy: 1537, 1625
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 6
+survivor-idle_flashlight
+  rotate: false
+  xy: 2, 227
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 3
+survivor-idle_flashlight
+  rotate: false
+  xy: 2, 227
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 17
+survivor-idle_flashlight
+  rotate: false
+  xy: 309, 460
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 19
+survivor-idle_flashlight
+  rotate: false
+  xy: 309, 460
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 1
+survivor-idle_flashlight
+  rotate: false
+  xy: 616, 693
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 11
+survivor-idle_flashlight
+  rotate: false
+  xy: 616, 693
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 9
+survivor-idle_flashlight
+  rotate: false
+  xy: 923, 926
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 0
+survivor-idle_flashlight
+  rotate: false
+  xy: 1230, 1159
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 8
+survivor-idle_flashlight
+  rotate: false
+  xy: 1230, 1159
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 12
+survivor-idle_flashlight
+  rotate: false
+  xy: 1537, 1400
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 16
+survivor-idle_flashlight
+  rotate: false
+  xy: 1537, 1400
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 4
+survivor-idle_flashlight
+  rotate: false
+  xy: 2, 2
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 5
+survivor-idle_flashlight
+  rotate: false
+  xy: 2, 2
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 15
+survivor-idle_flashlight
+  rotate: false
+  xy: 1537, 1175
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 13
+survivor-idle_flashlight
+  rotate: false
+  xy: 1537, 1175
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 7
+survivor-idle_flashlight
+  rotate: false
+  xy: 1535, 950
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 2
+survivor-idle_flashlight
+  rotate: false
+  xy: 1535, 950
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 18
+survivor-idle_flashlight
+  rotate: false
+  xy: 1230, 934
+  size: 303, 223
+  orig: 303, 223
+  offset: 0, 0
+  index: 10
+survivor-move_flashlight
+  rotate: false
+  xy: 2, 1617
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 19
+survivor-move_flashlight
+  rotate: false
+  xy: 2, 1384
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 3
+survivor-move_flashlight
+  rotate: false
+  xy: 309, 1617
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 11
+survivor-move_flashlight
+  rotate: false
+  xy: 2, 1151
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 8
+survivor-move_flashlight
+  rotate: false
+  xy: 309, 1384
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 16
+survivor-move_flashlight
+  rotate: false
+  xy: 616, 1617
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 0
+survivor-move_flashlight
+  rotate: false
+  xy: 2, 918
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 5
+survivor-move_flashlight
+  rotate: false
+  xy: 309, 1151
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 13
+survivor-move_flashlight
+  rotate: false
+  xy: 616, 1384
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 18
+survivor-move_flashlight
+  rotate: false
+  xy: 923, 1617
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 2
+survivor-move_flashlight
+  rotate: false
+  xy: 2, 685
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 10
+survivor-move_flashlight
+  rotate: false
+  xy: 309, 918
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 7
+survivor-move_flashlight
+  rotate: false
+  xy: 616, 1151
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 15
+survivor-move_flashlight
+  rotate: false
+  xy: 923, 1384
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 4
+survivor-move_flashlight
+  rotate: false
+  xy: 1230, 1617
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 12
+survivor-move_flashlight
+  rotate: false
+  xy: 2, 452
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 9
+survivor-move_flashlight
+  rotate: false
+  xy: 309, 685
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 17
+survivor-move_flashlight
+  rotate: false
+  xy: 616, 918
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 1
+survivor-move_flashlight
+  rotate: false
+  xy: 923, 1151
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 6
+survivor-move_flashlight
+  rotate: false
+  xy: 1230, 1384
+  size: 305, 231
+  orig: 305, 231
+  offset: 0, 0
+  index: 14
