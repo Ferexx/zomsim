@@ -2,10 +2,9 @@ package dev.ferex.zomsim.world;
 
 import com.badlogic.gdx.utils.Array;
 import dev.ferex.zomsim.characters.BasicZombie;
-import dev.ferex.zomsim.characters.Player;
+import dev.ferex.zomsim.characters.CharacterState;
 import dev.ferex.zomsim.screens.GameScreen;
 import dev.ferex.zomsim.world.interactable.Gate;
-import dev.ferex.zomsim.world.interactable.InteractableInterface;
 
 public class EventHandler {
     private GameScreen screen;
@@ -16,7 +15,7 @@ public class EventHandler {
     }
 
     public void onPlayerWalk() {
-        Array<String> args = new Array<>();
+        final Array<String> args = new Array<>();
         args.add(String.valueOf(screen.player.getX()));
         args.add(String.valueOf(screen.player.getY()));
 
@@ -26,7 +25,7 @@ public class EventHandler {
         }
     }
     public void onPlayerRun() {
-        Array<String> args = new Array<>();
+        final Array<String> args = new Array<>();
         args.add(String.valueOf(screen.player.getX()));
         args.add(String.valueOf(screen.player.getY()));
 
@@ -36,7 +35,7 @@ public class EventHandler {
         }
     }
     public void onPlayerAttack() {
-        Array<String> args = new Array<>();
+        final Array<String> args = new Array<>();
         args.add(String.valueOf(screen.player.getX()));
         args.add(String.valueOf(screen.player.getY()));
 
@@ -46,7 +45,7 @@ public class EventHandler {
         }
     }
     public void onPlayerReload() {
-        Array<String> args = new Array<>();
+        final Array<String> args = new Array<>();
         args.add(String.valueOf(screen.player.getX()));
         args.add(String.valueOf(screen.player.getY()));
 
@@ -57,7 +56,7 @@ public class EventHandler {
     }
 
     public void onGateChanged(Gate gate) {
-        Array<String> args = new Array<>();
+        final Array<String> args = new Array<>();
         args.add(String.valueOf(gate.getBoundingRectangle().x));
         args.add(String.valueOf(gate.getBoundingRectangle().y));
 
@@ -82,7 +81,7 @@ public class EventHandler {
             if(screen.player.isAttacking) {
                 onPlayerAttack();
             }
-            if(screen.player.currentState == Player.State.RELOADING) {
+            if(screen.player.currentState == CharacterState.RELOADING) {
                 onPlayerReload();
             }
 

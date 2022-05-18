@@ -37,15 +37,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class WorldCreator {
 
     public WorldCreator(GameScreen screen, World world, TiledMap map) {
-        BodyDef bodyDef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fixtureDef = new FixtureDef();
+        final BodyDef bodyDef = new BodyDef();
+        final PolygonShape shape = new PolygonShape();
+        final FixtureDef fixtureDef = new FixtureDef();
         Body body;
 
         world.setContactListener(new ContactListener(screen));
 
         Scheduler.setStrategy(new TestSchedulerStrategy());
-        AgentLoader loader = new AgentLoader("zomsim/core/src/astra/agents");
+        final AgentLoader loader = new AgentLoader("zomsim/core/src/astra/agents");
         try {
             loader.scan();
         } catch (MalformedURLException e) {
@@ -53,7 +53,7 @@ public class WorldCreator {
         }
 
         for(MapObject object : map.getLayers().get("Buildings").getObjects()) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            final Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bodyDef.type = BodyDef.BodyType.StaticBody;
             bodyDef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
             body = world.createBody(bodyDef);
@@ -65,8 +65,8 @@ public class WorldCreator {
 
         for(MapObject object : map.getLayers().get("Interactive Objects").getObjects()) {
             if (object.getProperties().get("type", String.class) != null) {
-                int xPos = object.getProperties().get("x", float.class).intValue();
-                int yPos = object.getProperties().get("y", float.class).intValue();
+                final int xPos = object.getProperties().get("x", float.class).intValue();
+                final int yPos = object.getProperties().get("y", float.class).intValue();
 
                 if (object.getProperties().get("type", String.class).equals("Gate_Horizontal"))
                     screen.entityHandler.interactables.add(new Gate(screen, xPos, yPos, 8, 5, false));
@@ -129,7 +129,7 @@ public class WorldCreator {
 
         int weaponCount = 0, zombieCount = 0;
         int i = 0;
-        Random r = new Random();
+        final Random r = new Random();
         while(weaponCount < ZomSim.TOTAL_WEAPONS || zombieCount < ZomSim.TOTAL_ZOMBIES) {
             for (MapObject object : map.getLayers().get("Spawns").getObjects()) {
                 if (object.getProperties().get("type", String.class) != null) {
@@ -216,7 +216,7 @@ public class WorldCreator {
     }
 
     public void spawnRandomGun(GameScreen screen, int xPos, int yPos) {
-        Random r = new Random();
+        final Random r = new Random();
         int random = r.nextInt(10) + 1;
         if(random > 8) screen.entityHandler.weapons.add(new WeaponSpawn(screen, xPos, yPos, 8, 8, new Shotgun(screen)));
         else if(random > 5) screen.entityHandler.weapons.add(new WeaponSpawn(screen, xPos, yPos, 8, 8, new Rifle(screen)));

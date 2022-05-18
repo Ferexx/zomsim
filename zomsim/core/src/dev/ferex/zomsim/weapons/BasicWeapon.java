@@ -1,13 +1,13 @@
 package dev.ferex.zomsim.weapons;
 
 public abstract class BasicWeapon {
-    public int damage;
-    public int attacksPerMinute;
+    public final int damage;
+    public final int attacksPerMinute;
     public long lastAttack;
 
-    public WeaponSlot weaponSlot;
-    public AmmoType ammoType;
-    public WeaponType weaponType;
+    public final WeaponSlot weaponSlot;
+    public final AmmoType ammoType;
+    public final WeaponType weaponType;
 
 
     public BasicWeapon(int damage, int attacksPerMinute, WeaponSlot weaponSlot, AmmoType ammoType, WeaponType weaponType) {

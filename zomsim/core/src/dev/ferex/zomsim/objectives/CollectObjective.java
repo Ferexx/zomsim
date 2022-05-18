@@ -1,7 +1,7 @@
 package dev.ferex.zomsim.objectives;
 
 public class CollectObjective extends BasicObjective {
-    public int numberOfItems;
+    public final int numberOfItems;
     public int itemsAcquired = 0;
 
     public CollectObjective(int numberOfItems) {

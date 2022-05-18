@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dev.ferex.zomsim.screens.MainMenuScreen;
 
 public class ZomSim extends Game {
-	public static int V_WIDTH = 1920;
-	public static int V_HEIGHT = 1080;
+	public static final int V_WIDTH = 1920;
+	public static final int V_HEIGHT = 1080;
 
 	public static final int TOTAL_WEAPONS = 20;
 	public static final int TOTAL_ZOMBIES = 50;

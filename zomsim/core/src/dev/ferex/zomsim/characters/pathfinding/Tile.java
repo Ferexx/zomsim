@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Vector3;
 import dev.ferex.zomsim.screens.GameScreen;
 
 public class Tile implements Location<Vector2> {
-    private GameScreen screen;
-    public int x, y;
+    private final GameScreen screen;
+    public final int x, y;
     public int index;
 
     public Tile(GameScreen screen, int x, int y) {
@@ -21,7 +21,7 @@ public class Tile implements Location<Vector2> {
     public void draw(ShapeRenderer renderer) {
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(0, 0, 0 , 1);
-        Vector3 coordinates = screen.camera.project(new Vector3(x + 3, y + 3, 0));
+        final Vector3 coordinates = screen.camera.project(new Vector3(x + 3, y + 3, 0));
         renderer.rect(coordinates.x, coordinates.y, 16, 16);
         renderer.end();
     }

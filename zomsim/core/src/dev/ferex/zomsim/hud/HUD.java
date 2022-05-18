@@ -29,16 +29,25 @@ public class HUD {
 
     public Stage stage;
 
-    private Label ammoLabel, healthLabel, primaryWeaponLabel, secondaryWeaponLabel, meleeWeaponLabel;
-    private Label objective1Label, objective2Label, objective3Label;
-    private Image primaryWeaponImage, secondaryWeaponImage, meleeWeaponImage;
-    private SpriteDrawable rifleDrawable, shotgunDrawable, pistolDrawable, knifeDrawable;
-    private BitmapFont font = new BitmapFont();
+    private final Label ammoLabel;
+    private final Label healthLabel;
+    private final Label primaryWeaponLabel;
+    private final Label secondaryWeaponLabel;
+    private final Label meleeWeaponLabel;
+    private final Label objective1Label;
+    private final Label objective2Label;
+    private final Label objective3Label;
+    private final Image primaryWeaponImage;
+    private final Image secondaryWeaponImage;
+    private final SpriteDrawable rifleDrawable;
+    private final SpriteDrawable shotgunDrawable;
+    private final SpriteDrawable pistolDrawable;
+    private final BitmapFont font = new BitmapFont();
 
     public HUD(GameScreen screen, SpriteBatch spriteBatch) {
         this.screen = screen;
 
-        Viewport viewport = new StretchViewport(ZomSim.V_WIDTH, ZomSim.V_HEIGHT, new OrthographicCamera());
+        final Viewport viewport = new StretchViewport(ZomSim.V_WIDTH, ZomSim.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, spriteBatch);
 
         primaryWeaponLabel = new Label("1", new Label.LabelStyle(font, Color.WHITE));
@@ -53,7 +62,7 @@ public class HUD {
 
         primaryWeaponImage = new Image();
         secondaryWeaponImage = new Image();
-        meleeWeaponImage = new Image();
+        final Image meleeWeaponImage = new Image();
 
         rifleDrawable = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("hud/ak47.png"))));
         rifleDrawable.setMinSize(rifleDrawable.getMinWidth() * 2, rifleDrawable.getMinHeight() * 2);
@@ -61,7 +70,7 @@ public class HUD {
         shotgunDrawable.setMinSize(shotgunDrawable.getMinWidth() * 2, shotgunDrawable.getMinHeight() * 2);
         pistolDrawable = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("hud/glock.png"))));
         pistolDrawable.setMinSize(pistolDrawable.getMinWidth() * 2, pistolDrawable.getMinHeight() * 2);
-        knifeDrawable = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("hud/knife.png"))));
+        final SpriteDrawable knifeDrawable = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("hud/knife.png"))));
         knifeDrawable.setMinSize(knifeDrawable.getMinWidth() / 2, knifeDrawable.getMinHeight() / 2);
         meleeWeaponImage.setDrawable(knifeDrawable);
 
@@ -70,9 +79,9 @@ public class HUD {
         healthLabel.setFontScale(5);
         healthLabel.setAlignment(Align.bottomLeft);
 
-        Table topTable = new Table();
-        Table bottomTable = new Table();
-        Table rightTable = new Table();
+        final Table topTable = new Table();
+        final Table bottomTable = new Table();
+        final Table rightTable = new Table();
         topTable.setFillParent(true);
         bottomTable.setFillParent(true);
         rightTable.setFillParent(true);
@@ -104,7 +113,7 @@ public class HUD {
     }
 
     public void update(float delta) {
-        BasicWeapon playerWeapon = screen.player.getActiveWeapon();
+        final BasicWeapon playerWeapon = screen.player.getActiveWeapon();
         if(playerWeapon.weaponSlot != WeaponSlot.MELEE) {
             ammoLabel.setText(String.format("%02d / %02d", ((BasicGun) playerWeapon).bulletsInMagazine,
                     ((BasicGun) playerWeapon).reserveAmmo));

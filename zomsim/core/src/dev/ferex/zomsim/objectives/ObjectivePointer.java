@@ -8,9 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 import dev.ferex.zomsim.screens.GameScreen;
 
 public class ObjectivePointer extends Sprite {
-    private GameScreen screen;
+    private final GameScreen screen;
 
-    public Vector2 angle = new Vector2(0, 0);
+    public final Vector2 angle = new Vector2(0, 0);
     public boolean visible = true;
 
     public ObjectivePointer(GameScreen screen) {

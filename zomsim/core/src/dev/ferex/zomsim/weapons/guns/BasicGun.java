@@ -11,7 +11,7 @@ public class BasicGun extends BasicWeapon {
     public int magazineSize;
     public int bulletsInMagazine;
 
-    public int reloadTimeMs;
+    public final int reloadTimeMs;
     public int reloadProgress = 0;
     public boolean isReloading = false;
 

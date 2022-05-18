@@ -11,12 +11,12 @@ import com.badlogic.gdx.utils.ObjectMap;
 import dev.ferex.zomsim.screens.GameScreen;
 
 public class LevelGraph implements IndexedGraph<Tile> {
-    private GameScreen screen;
-    TileHeuristic heuristic = new TileHeuristic();
-    public Array<Tile> tiles = new Array<>();
-    public Array<TileConnection> connections = new Array<>();
+    private final GameScreen screen;
+    final TileHeuristic heuristic = new TileHeuristic();
+    public final Array<Tile> tiles = new Array<>();
+    public final Array<TileConnection> connections = new Array<>();
 
-    ObjectMap<Tile, Array<Connection<Tile>>> connectionsMap = new ObjectMap<>();
+    final ObjectMap<Tile, Array<Connection<Tile>>> connectionsMap = new ObjectMap<>();
 
     private int lastTileIndex = 0;
 
@@ -30,7 +30,7 @@ public class LevelGraph implements IndexedGraph<Tile> {
     }
 
     public void connectTiles(Tile fromTile, Tile toTile) {
-        TileConnection connection = new TileConnection(screen, fromTile, toTile);
+        final TileConnection connection = new TileConnection(screen, fromTile, toTile);
         if(!connectionsMap.containsKey(fromTile))
             connectionsMap.put(fromTile, new Array<Connection<Tile>>());
         connectionsMap.get(fromTile).add(connection);
@@ -38,14 +38,14 @@ public class LevelGraph implements IndexedGraph<Tile> {
     }
 
     public void disconnectTiles(Tile fromTile, Tile toTile) {
-        TileConnection connection = new TileConnection(screen, fromTile, toTile);
+        final TileConnection connection = new TileConnection(screen, fromTile, toTile);
         if(connectionsMap.containsKey(fromTile))
             connectionsMap.get(fromTile).removeValue(connection, false);
         connections.removeValue(connection, false);
     }
 
     public GraphPath<Tile> findPath(Tile startTile, Tile endTile) {
-        GraphPath<Tile> path = new DefaultGraphPath<>();
+        final GraphPath<Tile> path = new DefaultGraphPath<>();
         new IndexedAStarPathFinder<>(this).searchNodePath(startTile, endTile, heuristic, path);
         return path;
     }

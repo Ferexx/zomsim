@@ -17,7 +17,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 import dev.ferex.zomsim.ZomSim;
@@ -34,7 +37,6 @@ import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BasicZombie extends BasicCharacter implements ZombieInterface, ZombieListener, Steerable<Vector2> {
-    private final GameScreen screen;
     public Agent agent;
     public LevelGraph levelGraph;
 
@@ -42,20 +44,16 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
     public static final float RANGE_SIGHT = 80;
     public static final int ATTACK_DAMAGE = 10;
     public static final double ATTACK_TIME = 0.75;
-
-    public enum State{ IDLE, MOVING, ATTACKING }
     public boolean canAttack = false;
-    public State currentState = State.IDLE;
-    public State previousState = State.IDLE;
     private float stateTimer = 0;
     private Tile nextTile;
-    private Queue<Tile> currentPath = new Queue<>();
+    private final Queue<Tile> currentPath = new Queue<>();
 
-    private final Animation idle;
-    private final Animation move;
-    private final Animation attack;
+    private final Animation<TextureAtlas.AtlasRegion> idle;
+    private final Animation<TextureAtlas.AtlasRegion> move;
+    private final Animation<TextureAtlas.AtlasRegion> attack;
 
-    private RayCastCallback rayCastCallback;
+    private final RayCastCallback rayCastCallback;
     private float closestFraction;
     private Fixture closestFixture;
     private boolean seeingPlayer = false;
@@ -71,21 +69,20 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
     SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
 
     public BasicZombie(final GameScreen screen, World world, int xPos, int yPos){
-        super(world, xPos + 4, yPos + 4, 50, ZomSim.ENEMY_BIT);
-        this.screen = screen;
+        super(screen, world, xPos + 4, yPos + 4, 50, ZomSim.ENEMY_BIT);
         levelGraph = screen.entityHandler.levelGraph;
 
         b2body.setUserData(this);
         bodyFixture.setUserData("zombie_body");
         meleeFixture.setUserData("zombie_melee");
 
-        int randomDegree = ThreadLocalRandom.current().nextInt(0, 360 + 1);
+        final int randomDegree = ThreadLocalRandom.current().nextInt(0, 360 + 1);
         b2body.setTransform(b2body.getPosition(), (float) (randomDegree * (Math.PI / 180)));
         setRotation(randomDegree);
 
         setBounds(0, 0, 100, 100);
 
-        TextureAtlas animations = new TextureAtlas("sprites/zombies/basic/BasicZombie.atlas");
+        final TextureAtlas animations = new TextureAtlas("sprites/zombies/basic/BasicZombie.atlas");
         idle = new Animation<>(1/17f, animations.findRegions("skeleton-idle"));
         move = new Animation<>(1/17f, animations.findRegions("skeleton-move"));
         attack = new Animation<>(1/9f, animations.findRegions("skeleton-attack"));
@@ -286,7 +283,7 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
         behaviour = null;
         b2body.setLinearVelocity(new Vector2(0, 0));
         currentPath.clear();
-        currentState = State.IDLE;
+        currentState = CharacterState.IDLE;
         return true;
     }
 
@@ -360,7 +357,7 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
 
     public void reachGoal() {
         b2body.setLinearVelocity(new Vector2(0, 0));
-        currentState = State.IDLE;
+        currentState = CharacterState.IDLE;
         addEvent("destinationReached");
     }
 
@@ -374,7 +371,7 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
             case IDLE:
                 region = (TextureRegion) idle.getKeyFrame(stateTimer, true);
                 break;
-            case MOVING:
+            case RUNNING:
                 region = (TextureRegion) move.getKeyFrame(stateTimer, true);
                 break;
             case ATTACKING:
@@ -386,11 +383,11 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
         return region;
     }
 
-    public BasicZombie.State getState() {
-        if(canAttack) return State.ATTACKING;
+    public CharacterState getState() {
+        if(canAttack) return CharacterState.ATTACKING;
         if(Math.abs(b2body.getLinearVelocity().x) > 0 || Math.abs(b2body.getLinearVelocity().y) > 0)
-            return BasicZombie.State.MOVING;
-        return BasicZombie.State.IDLE;
+            return CharacterState.RUNNING;
+        return CharacterState.IDLE;
     }
 
     public void draw(Batch batch) {

@@ -1,7 +1,7 @@
 package dev.ferex.zomsim.objectives;
 
 public class EscapeObjective extends BasicObjective {
-    public int escapeLocationX, escapeLocationY;
+    public final int escapeLocationX, escapeLocationY;
     public boolean inProgress = false;
 
     public EscapeObjective(int x, int y) {

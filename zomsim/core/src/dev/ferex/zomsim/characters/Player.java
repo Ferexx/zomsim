@@ -24,12 +24,7 @@ import dev.ferex.zomsim.world.interactable.WeaponSpawn;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player extends BasicCharacter implements Location<Vector2> {
-    public GameScreen screen;
-
-    public enum State { IDLE, WALKING, RUNNING, ATTACKING, RELOADING }
-    public State currentState;
-    public State previousState;
-    private float stateTimer;
+    private float stateTimer = 0;
     public InteractableInterface inContactWith;
     public BasicZombie inContactWithZombie;
 
@@ -45,52 +40,47 @@ public class Player extends BasicCharacter implements Location<Vector2> {
     public EscapeObjective escapeObjective;
     public BasicObjective trackedObjective = rescueObjective;
 
-    private final Animation knife_idle;
-    private final Animation pistol_idle;
-    private final Animation rifle_idle;
-    private final Animation shotgun_idle;
-    private final Animation knife_move;
-    private final Animation pistol_move;
-    private final Animation rifle_move;
-    private final Animation shotgun_move;
-    private final Animation knife_attack;
-    private final Animation pistol_shoot;
-    private final Animation rifle_shoot;
-    private final Animation shotgun_shoot;
-    private final Animation pistol_reload;
-    private final Animation rifle_reload;
-    private final Animation shotgun_reload;
+    private final Animation<TextureAtlas.AtlasRegion> knife_idle;
+    private final Animation<TextureAtlas.AtlasRegion> pistol_idle;
+    private final Animation<TextureAtlas.AtlasRegion> rifle_idle;
+    private final Animation<TextureAtlas.AtlasRegion> shotgun_idle;
+    private final Animation<TextureAtlas.AtlasRegion> knife_move;
+    private final Animation<TextureAtlas.AtlasRegion> pistol_move;
+    private final Animation<TextureAtlas.AtlasRegion> rifle_move;
+    private final Animation<TextureAtlas.AtlasRegion> shotgun_move;
+    private final Animation<TextureAtlas.AtlasRegion> knife_attack;
+    private final Animation<TextureAtlas.AtlasRegion> pistol_shoot;
+    private final Animation<TextureAtlas.AtlasRegion> rifle_shoot;
+    private final Animation<TextureAtlas.AtlasRegion> shotgun_shoot;
+    private final Animation<TextureAtlas.AtlasRegion> pistol_reload;
+    private final Animation<TextureAtlas.AtlasRegion> rifle_reload;
+    private final Animation<TextureAtlas.AtlasRegion> shotgun_reload;
 
 
     public Player(World world, int xPos, int yPos, GameScreen screen) {
-        super(world, xPos, yPos, 100, ZomSim.PLAYER_BIT);
-        this.screen = screen;
+        super(screen, world, xPos, yPos, 100, ZomSim.PLAYER_BIT);
         bodyFixture.setUserData("player");
         meleeFixture.setUserData("player_melee");
 
-        currentState = State.IDLE;
-        previousState = State.IDLE;
-        stateTimer = 0;
-
         TextureAtlas animations = new TextureAtlas("sprites/player/Player.atlas");
-        knife_idle = new Animation(1/20f, animations.findRegions("survivor-idle_knife"));
-        knife_move = new Animation(1/20f, animations.findRegions("survivor-move_knife"));
-        knife_attack = new Animation(1/20f, animations.findRegions("survivor-meleeattack_knife"));
+        knife_idle = new Animation<>(1/20f, animations.findRegions("survivor-idle_knife"));
+        knife_move = new Animation<>(1/20f, animations.findRegions("survivor-move_knife"));
+        knife_attack = new Animation<>(1/20f, animations.findRegions("survivor-meleeattack_knife"));
 
-        pistol_idle = new Animation(1/20f, animations.findRegions("survivor-idle_handgun"));
-        pistol_move = new Animation(1/20f, animations.findRegions("survivor-move_handgun"));
-        pistol_shoot = new Animation(1/20f, animations.findRegions("survivor-shoot_handgun"));
-        pistol_reload = new Animation(1/15f, animations.findRegions("survivor-reload_handgun"));
+        pistol_idle = new Animation<>(1/20f, animations.findRegions("survivor-idle_handgun"));
+        pistol_move = new Animation<>(1/20f, animations.findRegions("survivor-move_handgun"));
+        pistol_shoot = new Animation<>(1/20f, animations.findRegions("survivor-shoot_handgun"));
+        pistol_reload = new Animation<>(1/15f, animations.findRegions("survivor-reload_handgun"));
 
-        rifle_idle = new Animation(1/20f, animations.findRegions("survivor-idle_rifle"));
-        rifle_move = new Animation(1/20f, animations.findRegions("survivor-move_rifle"));
-        rifle_shoot = new Animation(1/20f, animations.findRegions("survivor-shoot_rifle"));
-        rifle_reload = new Animation(1/20f, animations.findRegions("survivor-reload_rifle"));
+        rifle_idle = new Animation<>(1/20f, animations.findRegions("survivor-idle_rifle"));
+        rifle_move = new Animation<>(1/20f, animations.findRegions("survivor-move_rifle"));
+        rifle_shoot = new Animation<>(1/20f, animations.findRegions("survivor-shoot_rifle"));
+        rifle_reload = new Animation<>(1/20f, animations.findRegions("survivor-reload_rifle"));
 
-        shotgun_idle = new Animation(1/20f, animations.findRegions("survivor-idle_shotgun"));
-        shotgun_move = new Animation(1/20f, animations.findRegions("survivor-move_shotgun"));
-        shotgun_shoot = new Animation(1/20f, animations.findRegions("survivor-shoot_shotgun"));
-        shotgun_reload = new Animation(1/20f, animations.findRegions("survivor-reload_shotgun"));
+        shotgun_idle = new Animation<>(1/20f, animations.findRegions("survivor-idle_shotgun"));
+        shotgun_move = new Animation<>(1/20f, animations.findRegions("survivor-move_shotgun"));
+        shotgun_shoot = new Animation<>(1/20f, animations.findRegions("survivor-shoot_shotgun"));
+        shotgun_reload = new Animation<>(1/20f, animations.findRegions("survivor-reload_shotgun"));
 
         setBounds(0, 0, 10, 10);
         setOriginCenter();
@@ -106,9 +96,9 @@ public class Player extends BasicCharacter implements Location<Vector2> {
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(delta));
 
-        BasicWeapon activeWeapon = getActiveWeapon();
+        final BasicWeapon activeWeapon = getActiveWeapon();
         if(activeWeapon.isReloading()) {
-            BasicGun activeGun = (BasicGun) activeWeapon;
+            final BasicGun activeGun = (BasicGun) activeWeapon;
             activeGun.reloadProgress += delta * 1000;
             if(activeGun.reloadProgress > activeGun.reloadTimeMs)
                 activeGun.endReload();
@@ -166,33 +156,34 @@ public class Player extends BasicCharacter implements Location<Vector2> {
         return region;
     }
 
-    private TextureRegion getTextureRegion(TextureRegion region, Animation rifle, Animation shotgun, Animation pistol, Animation knife) {
+    private TextureRegion getTextureRegion(TextureRegion region, Animation<TextureAtlas.AtlasRegion> rifle, Animation<TextureAtlas.AtlasRegion> shotgun,
+                                           Animation<TextureAtlas.AtlasRegion> pistol, Animation<TextureAtlas.AtlasRegion> knife) {
         switch (activeWeaponSlot) {
             case PRIMARY:
                 if(primaryWeapon instanceof Rifle)
-                    region = (TextureRegion) rifle.getKeyFrame(stateTimer, true);
+                    region = rifle.getKeyFrame(stateTimer, true);
                 else
-                    region = (TextureRegion) shotgun.getKeyFrame(stateTimer, true);
+                    region = shotgun.getKeyFrame(stateTimer, true);
                 break;
             case SECONDARY:
-                region = (TextureRegion) pistol.getKeyFrame(stateTimer, true);
+                region = pistol.getKeyFrame(stateTimer, true);
                 break;
             case MELEE:
-                region = (TextureRegion) knife.getKeyFrame(stateTimer, true);
+                region = knife.getKeyFrame(stateTimer, true);
         }
         return region;
     }
 
-    public State getState() {
+    public CharacterState getState() {
         if(getActiveWeapon().isReloading())
-            return State.RELOADING;
+            return CharacterState.RELOADING;
         if(isAttacking)
-            return State.ATTACKING;
+            return CharacterState.ATTACKING;
         if (Math.abs(b2body.getLinearVelocity().x) > 2 || Math.abs(b2body.getLinearVelocity().y) > 2)
-            return State.RUNNING;
+            return CharacterState.RUNNING;
         if (Math.abs(b2body.getLinearVelocity().x) > 0 || Math.abs(b2body.getLinearVelocity().y) > 0)
-            return State.WALKING;
-        return State.IDLE;
+            return CharacterState.WALKING;
+        return CharacterState.IDLE;
     }
 
     @Override

@@ -1,64 +1,32 @@
 package dev.ferex.zomsim.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import dev.ferex.zomsim.ZomSim;
 
-public class MainMenuScreen implements Screen {
-    private final ZomSim game;
-    private final Stage stage;
-
-    OrthographicCamera camera;
-
-    Music menuMusic;
+public class MainMenuScreen extends MenuScreen {
+    final Music menuMusic;
 
     public MainMenuScreen(final ZomSim game) {
-        this.game = game;
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, ZomSim.V_WIDTH, ZomSim.V_HEIGHT);
+        super(game);
 
         menuMusic = game.assetManager.get("audio/music/MenuMusic.mp3", Music.class);
         menuMusic.setLooping(true);
         menuMusic.play();
 
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-        
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ZombieQueen.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 200;
-        parameter.borderWidth = 1;
-        parameter.color = Color.BLACK;
-        BitmapFont font30 = fontGenerator.generateFont(parameter);
-        fontGenerator.dispose();
-
-        Table table = new Table();
-        table.top();
-        table.setFillParent(true);
-
-        Label.LabelStyle titleLabelStyle = new Label.LabelStyle();
-        titleLabelStyle.font = font30;
-        Label titleLabel = new Label("Agent Zombie", titleLabelStyle);
+        final Label.LabelStyle titleLabelStyle = new Label.LabelStyle();
+        titleLabelStyle.font = font;
+        final Label titleLabel = new Label("Agent Zombie", titleLabelStyle);
         titleLabel.setSize(ZomSim.V_WIDTH / 4.0f, ZomSim.V_HEIGHT / 6.0f);
         titleLabel.setPosition(ZomSim.V_WIDTH / 4.0f, ZomSim.V_HEIGHT - (ZomSim.V_HEIGHT / 3.0f));
 
-        Skin playButtonSkin = new Skin(Gdx.files.internal("skins/biological-attack/skin/biological-attack-ui.json"));
-        ImageTextButton playButton = new ImageTextButton("Play", playButtonSkin, "gasmask");
+        final Skin playButtonSkin = new Skin(Gdx.files.internal("skins/biological-attack/skin/biological-attack-ui.json"));
+        final ImageTextButton playButton = new ImageTextButton("Play", playButtonSkin, "gasmask");
         playButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -84,14 +52,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(256, 256, 256, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-
-        stage.act();
-        stage.draw();
+        super.render(delta);
 
         game.batch.begin();
         game.batch.end();

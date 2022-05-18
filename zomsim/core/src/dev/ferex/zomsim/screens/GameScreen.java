@@ -21,22 +21,22 @@ import dev.ferex.zomsim.world.WorldCreator;
 
 public class GameScreen implements Screen {
     public final ZomSim game;
-    public EntityHandler entityHandler = new EntityHandler(this);
+    public final EntityHandler entityHandler = new EntityHandler(this);
     public Player player;
-    public Controls controls;
-    public EventHandler eventHandler;
+    public final Controls controls;
+    public final EventHandler eventHandler;
 
     // Tiled Variables
-    public TiledMap currentMap;
+    public final TiledMap currentMap;
     private final TiledMapRenderer mapRenderer;
 
     // Box2D Variables
-    public World world;
+    public final World world;
     private final Box2DDebugRenderer b2dr;
-    public WorldCreator worldCreator;
+    public final WorldCreator worldCreator;
 
-    public OrthographicCamera camera;
-    public HUD hud;
+    public final OrthographicCamera camera;
+    public final HUD hud;
 
     public GameScreen(ZomSim game) {
         this.game = game;

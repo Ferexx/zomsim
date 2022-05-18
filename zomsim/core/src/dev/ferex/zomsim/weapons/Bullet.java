@@ -11,25 +11,25 @@ import dev.ferex.zomsim.screens.GameScreen;
 
 public class Bullet extends Sprite {
     private final GameScreen screen;
-    public Body body;
-    public Fixture fixture;
+    public final Body body;
+    public final Fixture fixture;
     public boolean visible = true;
     public boolean toDestroy = false;
 
-    public int damage;
+    public final int damage;
 
     public Bullet(GameScreen screen, World world, int damage) {
         this.screen = screen;
         this.damage = damage;
 
-        BodyDef bodyDef = new BodyDef();
+        final BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(screen.player.b2body.getPosition().x, screen.player.b2body.getPosition().y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bodyDef);
         body.setBullet(true);
 
-        FixtureDef fixtureDef = new FixtureDef();
-        CircleShape shape = new CircleShape();
+        final FixtureDef fixtureDef = new FixtureDef();
+        final CircleShape shape = new CircleShape();
         shape.setRadius(0.5f);
         fixtureDef.filter.categoryBits = ZomSim.BULLET_BIT;
         fixtureDef.filter.maskBits = ZomSim.DEFAULT_BIT | ZomSim.ENEMY_BIT;
@@ -39,7 +39,7 @@ public class Bullet extends Sprite {
         fixture.setUserData(this);
 
         body.setTransform(body.getPosition(), screen.player.b2body.getAngle());
-        float angle = screen.player.getRotation();
+        final float angle = screen.player.getRotation();
         body.applyLinearImpulse(new Vector2((float) Math.cos(angle * Math.PI/180) * 50,
                 (float) Math.sin(angle  * Math.PI/180) * 50), screen.player.b2body.getWorldCenter(), true);
 

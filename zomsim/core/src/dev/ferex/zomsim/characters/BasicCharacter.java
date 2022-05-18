@@ -4,26 +4,31 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import dev.ferex.zomsim.ZomSim;
+import dev.ferex.zomsim.screens.GameScreen;
 
 public abstract class BasicCharacter extends Sprite {
-    public World world;
-    public Body b2body;
+    protected final GameScreen screen;
+    public final World world;
+    public final Body b2body;
+    public CharacterState currentState = CharacterState.IDLE;
+    public CharacterState previousState = CharacterState.IDLE;
     public int health;
-    public Fixture bodyFixture;
-    public Fixture meleeFixture;
+    public final Fixture bodyFixture;
+    public final Fixture meleeFixture;
 
-    public BasicCharacter(World world, int xPos, int yPos, int health, short categoryBit) {
+    public BasicCharacter(GameScreen screen, World world, int xPos, int yPos, int health, short categoryBit) {
+        this.screen = screen;
         this.world = world;
         this.health = health;
 
-        BodyDef bdef = new BodyDef();
+        final BodyDef bdef = new BodyDef();
         bdef.linearDamping = 10f;
         bdef.position.set(xPos, yPos);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = this.world.createBody(bdef);
 
-        FixtureDef fixtureDef = new FixtureDef();
-        CircleShape shape = new CircleShape();
+        final FixtureDef fixtureDef = new FixtureDef();
+        final CircleShape shape = new CircleShape();
         shape.setRadius(3.5f);
         fixtureDef.filter.categoryBits = categoryBit;
         if(categoryBit == ZomSim.PLAYER_BIT) {
@@ -37,7 +42,7 @@ public abstract class BasicCharacter extends Sprite {
         fixtureDef.density = 1f;
         bodyFixture = b2body.createFixture(fixtureDef);
 
-        EdgeShape meleeRange = new EdgeShape();
+        final EdgeShape meleeRange = new EdgeShape();
         meleeRange.set(new Vector2(6, -3), new Vector2(6, 3));
         fixtureDef.filter.categoryBits = ZomSim.MELEE_BIT;
         fixtureDef.shape = meleeRange;

@@ -20,12 +20,12 @@ public class ContactListener implements com.badlogic.gdx.physics.box2d.ContactLi
 
     @Override
     public void beginContact(Contact contact) {
-        Fixture fixtureA = contact.getFixtureA();
-        Fixture fixtureB = contact.getFixtureB();
+        final Fixture fixtureA = contact.getFixtureA();
+        final Fixture fixtureB = contact.getFixtureB();
 
         if(fixtureA.getUserData() == "player" || fixtureB.getUserData() == "player") {
-            Fixture player = fixtureA.getUserData() == "player" ? fixtureA : fixtureB;
-            Fixture object = player == fixtureA ? fixtureB : fixtureA;
+            final Fixture player = fixtureA.getUserData() == "player" ? fixtureA : fixtureB;
+            final Fixture object = player == fixtureA ? fixtureB : fixtureA;
 
             if(object.getUserData() == "zombie_melee")
                 ((ZombieInterface) object.getBody().getUserData()).canAttack(true);
@@ -37,8 +37,8 @@ public class ContactListener implements com.badlogic.gdx.physics.box2d.ContactLi
         }
 
         if(fixtureA.getUserData() == "player_melee" || fixtureB.getUserData() == "player_melee") {
-            Fixture player_melee = fixtureA.getUserData() == "player_melee" ? fixtureA : fixtureB;
-            Fixture object = player_melee == fixtureA ? fixtureB : fixtureA;
+            final Fixture player_melee = fixtureA.getUserData() == "player_melee" ? fixtureA : fixtureB;
+            final Fixture object = player_melee == fixtureA ? fixtureB : fixtureA;
 
             if(object.getUserData() != null && object.getUserData() == "zombie_body") {
                 game.player.inContactWithZombie = (BasicZombie) object.getBody().getUserData();
@@ -47,8 +47,8 @@ public class ContactListener implements com.badlogic.gdx.physics.box2d.ContactLi
 
         if(fixtureA.getUserData() != null && Bullet.class.isAssignableFrom(fixtureA.getUserData().getClass()) ||
                 fixtureB.getUserData() != null && Bullet.class.isAssignableFrom(fixtureB.getUserData().getClass())) {
-            Fixture bullet = Bullet.class.isAssignableFrom(fixtureA.getUserData().getClass()) ? fixtureA : fixtureB;
-            Fixture object = bullet == fixtureA ? fixtureB : fixtureA;
+            final Fixture bullet = Bullet.class.isAssignableFrom(fixtureA.getUserData().getClass()) ? fixtureA : fixtureB;
+            final Fixture object = bullet == fixtureA ? fixtureB : fixtureA;
 
             if(object.getUserData() == "wall") {
                 ((Bullet) bullet.getUserData()).toDestroy = true;
@@ -65,12 +65,12 @@ public class ContactListener implements com.badlogic.gdx.physics.box2d.ContactLi
 
     @Override
     public void endContact(Contact contact) {
-        Fixture fixtureA = contact.getFixtureA();
-        Fixture fixtureB = contact.getFixtureB();
+        final Fixture fixtureA = contact.getFixtureA();
+        final Fixture fixtureB = contact.getFixtureB();
 
         if(fixtureA.getUserData() == "player" || fixtureB.getUserData() == "player") {
-            Fixture player = fixtureA.getUserData() == "player" ? fixtureA : fixtureB;
-            Fixture object = player == fixtureA ? fixtureB : fixtureA;
+            final Fixture player = fixtureA.getUserData() == "player" ? fixtureA : fixtureB;
+            final Fixture object = player == fixtureA ? fixtureB : fixtureA;
 
             if(object.getUserData() == "zombie_melee")
                 ((ZombieInterface) object.getBody().getUserData()).canAttack(false);
@@ -82,8 +82,8 @@ public class ContactListener implements com.badlogic.gdx.physics.box2d.ContactLi
         }
 
         if(fixtureA.getUserData() == "player_melee" || fixtureB.getUserData() == "player_melee") {
-            Fixture player_melee = fixtureA.getUserData() == "player_melee" ? fixtureA : fixtureB;
-            Fixture object = player_melee == fixtureA ? fixtureB : fixtureA;
+            final Fixture player_melee = fixtureA.getUserData() == "player_melee" ? fixtureA : fixtureB;
+            final Fixture object = player_melee == fixtureA ? fixtureB : fixtureA;
 
             if(object.getUserData() != null && BasicZombie.class.isAssignableFrom(object.getUserData().getClass())) {
                 game.player.inContactWithZombie = null;

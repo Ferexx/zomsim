@@ -10,8 +10,8 @@ import dev.ferex.zomsim.screens.PauseScreen;
 import dev.ferex.zomsim.weapons.WeaponSlot;
 
 public class Controls {
-    private GameScreen screen;
-    private Player player;
+    private final GameScreen screen;
+    private final Player player;
 
     public boolean paused = false;
 
@@ -72,8 +72,8 @@ public class Controls {
 
         player.isAttacking = Gdx.input.isTouched();
 
-        Vector2 angle = new Vector2(0,0);
-        Vector3 coordinates = screen.camera.project(new Vector3(screen.player.b2body.getPosition().x, screen.player.b2body.getPosition().y, 0));
+        final Vector2 angle = new Vector2(0,0);
+        final Vector3 coordinates = screen.camera.project(new Vector3(screen.player.b2body.getPosition().x, screen.player.b2body.getPosition().y, 0));
         angle.x = Gdx.input.getX() - coordinates.x;
         angle.y = Gdx.graphics.getHeight() - Gdx.input.getY() - coordinates.y + (player.getHeight() / 2);
 

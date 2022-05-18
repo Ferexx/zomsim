@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Vector3;
 import dev.ferex.zomsim.screens.GameScreen;
 
 public class TileConnection implements Connection<Tile> {
-    private GameScreen screen;
-    public Tile fromTile, toTile;
+    private final GameScreen screen;
+    public final Tile fromTile, toTile;
 
     public TileConnection(GameScreen screen, Tile fromTile, Tile toTile) {
         this.screen = screen;
@@ -33,8 +33,8 @@ public class TileConnection implements Connection<Tile> {
     public void draw(ShapeRenderer shapeRenderer) {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0, 0, 0 , 1);
-        Vector3 coordinates = screen.camera.project(new Vector3(fromTile.x + 4, fromTile.y + 4, 0));
-        Vector3 coordinates2 = screen.camera.project(new Vector3(toTile.x + 4, toTile.y + 4, 0));
+        final Vector3 coordinates = screen.camera.project(new Vector3(fromTile.x + 4, fromTile.y + 4, 0));
+        final Vector3 coordinates2 = screen.camera.project(new Vector3(toTile.x + 4, toTile.y + 4, 0));
         shapeRenderer.rectLine(coordinates.x, coordinates.y, coordinates2.x, coordinates2.y, 1);
         shapeRenderer.end();
     }

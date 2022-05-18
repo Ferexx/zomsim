@@ -5,7 +5,10 @@ import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.ai.utils.Location;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -16,11 +19,6 @@ import dev.ferex.zomsim.screens.GameScreen;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Survivor extends BasicCharacter implements Steerable<Vector2> {
-    private final GameScreen screen;
-
-    public enum State { IDLE, MOVING }
-    public State currentState = State.IDLE;
-    public State previousState = State.IDLE;
     private float stateTimer = 0;
 
     public boolean toDestroy = false;
@@ -28,32 +26,33 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
 
     boolean tagged = false;
     float boundingRadius;
-    float maxLinearSpeed = 500, maxLinearAcceleration = 5000;
-    float maxAngularSpeed = 30, maxAngularAcceleration = 5;
+    float maxLinearSpeed = 500;
+    float maxLinearAcceleration = 5000;
+    float maxAngularSpeed = 30;
+    float maxAngularAcceleration = 5;
     float zeroLinearSpeedThreshold = 1;
 
-    private final Animation idle;
-    private final Animation move;
+    private final Animation<TextureAtlas.AtlasRegion> idle;
+    private final Animation<TextureAtlas.AtlasRegion> move;
 
     SteeringBehavior<Vector2> behaviour;
     SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
 
     public Survivor(final GameScreen screen, World world, int xPos, int yPos) {
-        super(world, xPos + 4, yPos + 4, 50, ZomSim.PLAYER_BIT);
-        this.screen = screen;
+        super(screen, world, xPos + 4, yPos + 4, 50, ZomSim.PLAYER_BIT);
 
         b2body.setUserData(this);
 
-        int randomDegree = ThreadLocalRandom.current().nextInt(0, 360 + 1);
+        final int randomDegree = ThreadLocalRandom.current().nextInt(0, 360 + 1);
         b2body.setTransform(b2body.getPosition(), (float) (randomDegree * (Math.PI / 180)));
         setRotation(randomDegree);
 
         setBounds(0, 0, 10, 10);
         setOriginCenter();
 
-        TextureAtlas animations = new TextureAtlas("sprites/survivor/Survivor.atlas");
-        idle = new Animation(1/20f, animations.findRegions("survivor-idle_flashlight"));
-        move = new Animation(1/20f, animations.findRegions("survivor-move_flashlight"));
+        final TextureAtlas animations = new TextureAtlas("sprites/survivor/Survivor.atlas");
+        idle = new Animation<>(1/20f, animations.findRegions("survivor-idle_flashlight"));
+        move = new Animation<>(1/20f, animations.findRegions("survivor-move_flashlight"));
     }
 
     @Override
@@ -64,7 +63,7 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
         if(behaviour != null) {
             behaviour.calculateSteering(steeringOutput);
             applySteering(delta);
-            Vector2 angle = new Vector2(0, 0);
+            final Vector2 angle = new Vector2(0, 0);
             angle.x = screen.player.b2body.getPosition().x - b2body.getPosition().x;
             angle.y = screen.player.b2body.getPosition().y - b2body.getPosition().y;
             setRotation(angle.angleDeg());
@@ -78,7 +77,7 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
     }
 
     public void chasePlayer() {
-        Arrive<Vector2> arriveSB = new Arrive<>(this, screen.player)
+        final Arrive<Vector2> arriveSB = new Arrive<>(this, screen.player)
                 .setTimeToTarget(0.01f)
                 .setArrivalTolerance(2f)
                 .setDecelerationRadius(10);
@@ -100,7 +99,7 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
         boolean anyAccelerations = false;
 
         if(!steeringOutput.linear.isZero()) {
-            Vector2 force = steeringOutput.linear.scl(delta * 75);
+            final Vector2 force = steeringOutput.linear.scl(delta * 75);
             b2body.applyForceToCenter(force, true);
             anyAccelerations = true;
         }
@@ -111,8 +110,8 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
         }
 
         if(anyAccelerations) {
-            Vector2 velocity = b2body.getLinearVelocity();
-            float currentSpeedSquare = velocity.len2();
+            final Vector2 velocity = b2body.getLinearVelocity();
+            final float currentSpeedSquare = velocity.len2();
             if(currentSpeedSquare > maxLinearSpeed * maxLinearSpeed) {
                 b2body.setLinearVelocity(velocity.scl(maxLinearSpeed / (float) Math.sqrt(currentSpeedSquare)));
             }
@@ -129,10 +128,10 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
         TextureRegion region = new TextureRegion();
         switch (currentState) {
             case IDLE:
-                region = (TextureRegion) idle.getKeyFrame(stateTimer, true);
+                region = idle.getKeyFrame(stateTimer, true);
                 break;
-            case MOVING:
-                region = (TextureRegion) move.getKeyFrame(stateTimer, true);
+            case RUNNING:
+                region = move.getKeyFrame(stateTimer, true);
                 break;
         }
 
@@ -141,10 +140,10 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
         return region;
     }
 
-    public State getState() {
+    public CharacterState getState() {
         if(Math.abs(b2body.getLinearVelocity().x) > 0 || Math.abs(b2body.getLinearVelocity().y) > 0)
-            return State.MOVING;
-        return State.IDLE;
+            return CharacterState.RUNNING;
+        return CharacterState.IDLE;
     }
 
     @Override

@@ -14,14 +14,14 @@ import dev.ferex.zomsim.weapons.Bullet;
 import dev.ferex.zomsim.world.interactable.*;
 
 public class EntityHandler {
-    private GameScreen screen;
+    private final GameScreen screen;
 
-    public Array<WeaponSpawn> weapons = new Array<>();
-    public Array<Ammo> ammo = new Array<>();
-    public Array<Bullet> bullets = new Array<>();
-    public Array<BasicZombie> zombies = new Array<>();
-    public Array<CollectObjectiveItem> fetchObjectiveItems = new Array<>();
-    public Array<InteractableInterface> interactables = new Array<>();
+    public final Array<WeaponSpawn> weapons = new Array<>();
+    public final Array<Ammo> ammo = new Array<>();
+    public final Array<Bullet> bullets = new Array<>();
+    public final Array<BasicZombie> zombies = new Array<>();
+    public final Array<CollectObjectiveItem> fetchObjectiveItems = new Array<>();
+    public final Array<InteractableInterface> interactables = new Array<>();
     public RescueObjectiveItem rescueObjectiveItem;
     public Survivor rescueSurvivor;
     public RescueExit rescueExit;

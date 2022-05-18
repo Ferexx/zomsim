@@ -1,7 +1,7 @@
 package dev.ferex.zomsim.objectives;
 
 public class KillObjective extends BasicObjective {
-    public int numberOfKills;
+    public final int numberOfKills;
     public int killed = 0;
 
     public KillObjective(int numberOfKills) {
