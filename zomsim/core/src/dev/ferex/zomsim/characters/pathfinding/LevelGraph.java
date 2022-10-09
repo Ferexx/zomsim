@@ -8,10 +8,8 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import dev.ferex.zomsim.screens.GameScreen;
 
 public class LevelGraph implements IndexedGraph<Tile> {
-    private final GameScreen screen;
     final TileHeuristic heuristic = new TileHeuristic();
     public final Array<Tile> tiles = new Array<>();
     public final Array<TileConnection> connections = new Array<>();
@@ -20,8 +18,7 @@ public class LevelGraph implements IndexedGraph<Tile> {
 
     private int lastTileIndex = 0;
 
-    public LevelGraph(GameScreen screen) {
-        this.screen = screen;
+    public LevelGraph() {
     }
 
     public void addTile(Tile tile) {
@@ -30,7 +27,7 @@ public class LevelGraph implements IndexedGraph<Tile> {
     }
 
     public void connectTiles(Tile fromTile, Tile toTile) {
-        final TileConnection connection = new TileConnection(screen, fromTile, toTile);
+        final TileConnection connection = new TileConnection(fromTile, toTile);
         if(!connectionsMap.containsKey(fromTile))
             connectionsMap.put(fromTile, new Array<Connection<Tile>>());
         connectionsMap.get(fromTile).add(connection);
@@ -38,7 +35,7 @@ public class LevelGraph implements IndexedGraph<Tile> {
     }
 
     public void disconnectTiles(Tile fromTile, Tile toTile) {
-        final TileConnection connection = new TileConnection(screen, fromTile, toTile);
+        final TileConnection connection = new TileConnection(fromTile, toTile);
         if(connectionsMap.containsKey(fromTile))
             connectionsMap.get(fromTile).removeValue(connection, false);
         connections.removeValue(connection, false);

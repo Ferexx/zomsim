@@ -5,13 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.ZomSim;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.characters.Player;
 
-public class RescueExit extends BasicWorldItem implements InteractableInterface {
+public class RescueExit extends BasicWorldItem {
 
-    public RescueExit(GameScreen screen, int xPos, int yPos, int width, int height) {
-        super(screen, xPos, yPos, width, height);
+    public RescueExit(int xPos, int yPos, int width, int height) {
+        super(xPos, yPos, width, height);
         setCategoryFilter(ZomSim.OBJECTIVE_BIT);
 
         fixture.setUserData(this);
@@ -23,10 +24,11 @@ public class RescueExit extends BasicWorldItem implements InteractableInterface 
     }
 
     public void interact() {
-        if(screen.player.rescueObjective.inProgress && Vector2.dst(screen.player.b2body.getPosition().x, screen.player.b2body.getPosition().y, screen.entityHandler.rescueSurvivor.b2body.getPosition().x, screen.entityHandler.rescueSurvivor.b2body.getPosition().y) < 10) {
-            screen.player.rescueObjective.complete = true;
-            screen.player.rescueObjective.inProgress = false;
-            screen.entityHandler.rescueSurvivor.destroy();
+        Player player = Player.getInstance();
+        EntityHandler entityHandler = EntityHandler.getInstance();
+        if(player.rescueObjective.isInProgress() && Vector2.dst(player.b2body.getPosition().x, player.b2body.getPosition().y, entityHandler.rescueSurvivor.b2body.getPosition().x, entityHandler.rescueSurvivor.b2body.getPosition().y) < 10) {
+            player.rescueObjective.end();
+            entityHandler.rescueSurvivor.destroy();
             destroy();
         }
     }

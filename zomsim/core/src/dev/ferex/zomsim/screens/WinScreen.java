@@ -10,9 +10,7 @@ import dev.ferex.zomsim.ZomSim;
 
 public class WinScreen extends MenuScreen {
 
-    public WinScreen(final ZomSim game) {
-        super(game);
-
+    public WinScreen() {
         final Label.LabelStyle titleLabelStyle = new Label.LabelStyle();
         titleLabelStyle.font = font;
         final Label titleLabel = new Label("You Survived", titleLabelStyle);
@@ -26,7 +24,7 @@ public class WinScreen extends MenuScreen {
         mainMenuButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new MainMenuScreen(game));
+                ZomSim.getInstance().setScreen(new MainMenuScreen());
                 dispose();
             }
             @Override
@@ -61,6 +59,7 @@ public class WinScreen extends MenuScreen {
 
     @Override
     public void render(float delta) {
+        ZomSim game = ZomSim.getInstance();
         game.batch.begin();
         game.batch.end();
     }

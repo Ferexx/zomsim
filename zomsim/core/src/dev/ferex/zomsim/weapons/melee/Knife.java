@@ -11,14 +11,50 @@ public class Knife extends BasicWeapon {
         super(20, 30, WeaponSlot.MELEE, AmmoType.NONE, WeaponType.KNIFE);
     }
 
-    public boolean attack() {
-        if(System.currentTimeMillis() - lastAttack < 60000 / attacksPerMinute) return false;
-        else lastAttack = System.currentTimeMillis();
-
-        return true;
+    @Override
+    public WeaponType getType() {
+        return WeaponType.KNIFE;
     }
 
+    @Override
+    public AmmoType getAmmoType() {
+        return null;
+    }
+
+    @Override
+    public WeaponSlot getSlot() {
+        return WeaponSlot.MELEE;
+    }
+
+    @Override
+    public int getAmmoInMagazine() {
+        return -1;
+    }
+
+    @Override
+    public int getReserveAmmo() {
+        return -1;
+    }
+
+    public void attack() {
+        if(System.currentTimeMillis() - lastAttack < 60000 / attacksPerMinute) return;
+        else {
+            lastAttack = System.currentTimeMillis();
+            // TODO: Melee attack
+        }
+    }
+
+    @Override
+    public void update(float delta) {}
+
+    @Override
+    public void reload() {}
+
+    @Override
     public boolean isReloading() {
         return false;
     }
+
+    @Override
+    public void addAmmo(int amount) {}
 }

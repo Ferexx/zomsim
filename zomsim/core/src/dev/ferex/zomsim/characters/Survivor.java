@@ -11,10 +11,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
 import dev.ferex.zomsim.ZomSim;
 import dev.ferex.zomsim.characters.pathfinding.SteeringUtils;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.world.WorldManager;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -38,8 +37,8 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
     SteeringBehavior<Vector2> behaviour;
     SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
 
-    public Survivor(final GameScreen screen, World world, int xPos, int yPos) {
-        super(screen, world, xPos + 4, yPos + 4, 50, ZomSim.PLAYER_BIT);
+    public Survivor(final int xPos, final int yPos) {
+        super(xPos + 4, yPos + 4, 50, ZomSim.PLAYER_BIT);
 
         b2body.setUserData(this);
 
@@ -56,7 +55,8 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
     }
 
     @Override
-    public void update(float delta) {
+    public void update(final float delta) {
+        final Player player = Player.getInstance();
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(delta));
 
@@ -64,20 +64,20 @@ public class Survivor extends BasicCharacter implements Steerable<Vector2> {
             behaviour.calculateSteering(steeringOutput);
             applySteering(delta);
             final Vector2 angle = new Vector2(0, 0);
-            angle.x = screen.player.b2body.getPosition().x - b2body.getPosition().x;
-            angle.y = screen.player.b2body.getPosition().y - b2body.getPosition().y;
+            angle.x = player.b2body.getPosition().x - b2body.getPosition().x;
+            angle.y = player.b2body.getPosition().y - b2body.getPosition().y;
             setRotation(angle.angleDeg());
             b2body.setTransform(b2body.getPosition(), angle.angleRad());
         }
 
         if(toDestroy && !destroyed) {
-            screen.world.destroyBody(b2body);
+            WorldManager.getInstance().getWorld().destroyBody(b2body);
             destroyed = true;
         }
     }
 
     public void chasePlayer() {
-        final Arrive<Vector2> arriveSB = new Arrive<>(this, screen.player)
+        final Arrive<Vector2> arriveSB = new Arrive<>(this, Player.getInstance())
                 .setTimeToTarget(0.01f)
                 .setArrivalTolerance(2f)
                 .setDecelerationRadius(10);

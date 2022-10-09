@@ -5,15 +5,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.world.WorldManager;
 
 public class Tile implements Location<Vector2> {
-    private final GameScreen screen;
     public final int x, y;
     public int index;
 
-    public Tile(GameScreen screen, int x, int y) {
-        this.screen = screen;
+    public Tile(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -21,7 +19,7 @@ public class Tile implements Location<Vector2> {
     public void draw(ShapeRenderer renderer) {
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(0, 0, 0 , 1);
-        final Vector3 coordinates = screen.camera.project(new Vector3(x + 3, y + 3, 0));
+        final Vector3 coordinates = WorldManager.getInstance().camera.project(new Vector3(x + 3, y + 3, 0));
         renderer.rect(coordinates.x, coordinates.y, 16, 16);
         renderer.end();
     }

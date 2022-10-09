@@ -6,9 +6,15 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import dev.ferex.zomsim.screens.GameScreen;
 import dev.ferex.zomsim.screens.MainMenuScreen;
+import dev.ferex.zomsim.screens.PauseScreen;
 
 public class ZomSim extends Game {
+
+	private static ZomSim instance;
+
+	private boolean paused = false;
 	public static final int V_WIDTH = 1920;
 	public static final int V_HEIGHT = 1080;
 
@@ -28,6 +34,13 @@ public class ZomSim extends Game {
 	public SpriteBatch batch;
 	public BitmapFont font;
 	public AssetManager assetManager;
+
+	public static ZomSim getInstance() {
+		if (instance == null) {
+			instance = new ZomSim();
+		}
+		return instance;
+	}
 	
 	@Override
 	public void create() {
@@ -47,7 +60,7 @@ public class ZomSim extends Game {
 		assetManager.load("audio/sounds/player_hurt.wav", Sound.class);
 		assetManager.finishLoading();
 
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new MainMenuScreen());
 	}
 
 	@Override
@@ -61,5 +74,19 @@ public class ZomSim extends Game {
 		batch.dispose();
 		font.dispose();
 		assetManager.dispose();
+	}
+
+	public boolean isPaused() {
+		return paused;
+	}
+
+	public void pause() {
+		setScreen(new PauseScreen());
+		paused = true;
+	}
+
+	public void unpause() {
+		setScreen(GameScreen.getInstance());
+		paused = false;
 	}
 }

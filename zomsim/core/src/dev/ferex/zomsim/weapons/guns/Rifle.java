@@ -1,17 +1,34 @@
 package dev.ferex.zomsim.weapons.guns;
 
 import com.badlogic.gdx.audio.Sound;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.ZomSim;
 import dev.ferex.zomsim.weapons.AmmoType;
 import dev.ferex.zomsim.weapons.WeaponSlot;
 import dev.ferex.zomsim.weapons.WeaponType;
 
 public class Rifle extends BasicGun {
 
-    public Rifle(GameScreen screen) {
+    public Rifle() {
         super(20, 600, 0, 30, 30, 3000, WeaponSlot.PRIMARY, AmmoType.RIFLE, WeaponType.RIFLE);
 
-        shootSound = screen.game.assetManager.get("audio/sounds/ak47_shoot.wav", Sound.class);
-        reloadSound = screen.game.assetManager.get("audio/sounds/ak47_reload.wav", Sound.class);
+        ZomSim game = ZomSim.getInstance();
+        shootSound = game.assetManager.get("audio/sounds/ak47_shoot.wav", Sound.class);
+        reloadSound = game.assetManager.get("audio/sounds/ak47_reload.wav", Sound.class);
+    }
+
+
+    @Override
+    public WeaponType getType() {
+        return WeaponType.RIFLE;
+    }
+
+    @Override
+    public AmmoType getAmmoType() {
+        return AmmoType.RIFLE;
+    }
+
+    @Override
+    public WeaponSlot getSlot() {
+        return WeaponSlot.PRIMARY;
     }
 }

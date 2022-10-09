@@ -1,13 +1,14 @@
 package dev.ferex.zomsim.world.interactable;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.ZomSim;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.characters.Player;
 
-public class RescueObjectiveItem extends BasicWorldItem implements InteractableInterface {
+public class RescueObjectiveItem extends BasicWorldItem {
 
-    public RescueObjectiveItem(GameScreen screen, int xPos, int yPos, int width, int height) {
-        super(screen, xPos, yPos, width, height);
+    public RescueObjectiveItem(int xPos, int yPos, int width, int height) {
+        super(xPos, yPos, width, height);
         setCategoryFilter(ZomSim.OBJECTIVE_BIT);
 
         fixture.setUserData(this);
@@ -18,8 +19,8 @@ public class RescueObjectiveItem extends BasicWorldItem implements InteractableI
     }
 
     public void interact() {
-        screen.player.rescueObjective.inProgress = true;
-        screen.entityHandler.rescueSurvivor.chasePlayer();
+        Player.getInstance().rescueObjective.start();
+        EntityHandler.getInstance().rescueSurvivor.chasePlayer();
         destroy();
     }
 

@@ -6,26 +6,25 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Pool;
 import dev.ferex.zomsim.ZomSim;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.characters.Player;
+import dev.ferex.zomsim.world.WorldManager;
 
-public class Bullet extends Sprite {
-    private final GameScreen screen;
+public class Bullet extends Sprite implements Pool.Poolable {
     public final Body body;
     public final Fixture fixture;
-    public boolean visible = true;
     public boolean toDestroy = false;
 
-    public final int damage;
+    public int damage;
 
-    public Bullet(GameScreen screen, World world, int damage) {
-        this.screen = screen;
-        this.damage = damage;
+    public Bullet() {
+        Player player = Player.getInstance();
 
         final BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(screen.player.b2body.getPosition().x, screen.player.b2body.getPosition().y);
+        bodyDef.position.set(player.b2body.getPosition().x, player.b2body.getPosition().y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        body = world.createBody(bodyDef);
+        body = WorldManager.getInstance().getWorld().createBody(bodyDef);
         body.setBullet(true);
 
         final FixtureDef fixtureDef = new FixtureDef();
@@ -38,30 +37,36 @@ public class Bullet extends Sprite {
         fixture = body.createFixture(fixtureDef);
         fixture.setUserData(this);
 
-        body.setTransform(body.getPosition(), screen.player.b2body.getAngle());
-        final float angle = screen.player.getRotation();
-        body.applyLinearImpulse(new Vector2((float) Math.cos(angle * Math.PI/180) * 50,
-                (float) Math.sin(angle  * Math.PI/180) * 50), screen.player.b2body.getWorldCenter(), true);
-
         set(new Sprite(new Texture(Gdx.files.internal("sprites/guns/bullet.png"))));
         setBounds(0, 0, 25, 11);
         setOriginCenter();
-        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
-        setRotation(angle);
         setScale(0.05f);
     }
 
-    public void update(float delta) {
-        if(toDestroy) {
-            screen.world.destroyBody(body);
-            screen.entityHandler.bullets.removeValue(this, true);
-        }
+    public void update() {
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
     }
 
     @Override
     public void draw(Batch batch) {
-        if(!visible) return;
         super.draw(batch);
+    }
+
+    public void init(int damage) {
+        this.damage = damage;
+        Player player = Player.getInstance();
+        body.setTransform(body.getPosition(), player.b2body.getAngle());
+        final float angle = player.getRotation();
+        body.applyLinearImpulse(new Vector2((float) Math.cos(angle * Math.PI/180) * 50,
+                (float) Math.sin(angle  * Math.PI/180) * 50), player.b2body.getWorldCenter(), true);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
+        setRotation(angle);
+    }
+
+    @Override
+    public void reset() {
+        body.getPosition().x = 0;
+        body.getPosition().y = 0;
+        setPosition(0,0);
     }
 }

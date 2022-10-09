@@ -1,13 +1,12 @@
 package dev.ferex.zomsim.weapons;
 
-public abstract class BasicWeapon {
+public abstract class BasicWeapon implements Weapon {
     public final int damage;
     public final int attacksPerMinute;
-    public long lastAttack;
-
     public final WeaponSlot weaponSlot;
     public final AmmoType ammoType;
     public final WeaponType weaponType;
+    public long lastAttack;
 
 
     public BasicWeapon(int damage, int attacksPerMinute, WeaponSlot weaponSlot, AmmoType ammoType, WeaponType weaponType) {
@@ -18,6 +17,5 @@ public abstract class BasicWeapon {
         this.weaponType = weaponType;
     }
 
-    public abstract boolean attack();
     public abstract boolean isReloading();
 }

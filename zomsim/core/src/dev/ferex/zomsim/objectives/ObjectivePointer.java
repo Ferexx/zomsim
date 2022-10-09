@@ -5,55 +5,41 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.characters.Player;
 
 public class ObjectivePointer extends Sprite {
-    private final GameScreen screen;
 
+    private final Vector2 objectivePosition;
     public final Vector2 angle = new Vector2(0, 0);
-    public boolean visible = true;
 
-    public ObjectivePointer(GameScreen screen) {
-        this.screen = screen;
-
+    public ObjectivePointer(Vector2 position) {
+        this.objectivePosition = position;
         set(new Sprite(new Texture(Gdx.files.internal("sprites/objectives/objectivepointer.png"))));
         setBounds(0, 0, 10, 10);
         setOriginCenter();
         setScale(0.5f);
     }
 
-    public void update(float delta) {
-        if(screen.player.trackedObjective instanceof RescueObjective && screen.player.rescueObjective.inProgress) {
-            float deltaX = screen.entityHandler.rescueExit.getX() - screen.player.getX();
-            float deltaY = screen.entityHandler.rescueExit.getY() - screen.player.getY();
-            setOffset(deltaX, deltaY);
-            visible = true;
-        }
-        else if(screen.player.trackedObjective instanceof EscapeObjective) {
-            float deltaX = screen.entityHandler.escapeExit.getX() - screen.player.getX();
-            float deltaY = screen.entityHandler.escapeExit.getY() - screen.player.getY();
-            setOffset(deltaX, deltaY);
-            visible = true;
-        }
-        else visible = false;
-
+    public void update() {
+        final Player player = Player.getInstance();
+        final float deltaX = objectivePosition.x - player.getX();
+        final float deltaY = objectivePosition.y - player.getY();
+        setOffset(player, deltaX, deltaY);
         setRotation(angle.angleDeg());
     }
 
-    private void setOffset(float deltaX, float deltaY) {
+    private void setOffset(final Player player, final float deltaX, final float deltaY) {
         angle.x = deltaX;
         angle.y = deltaY;
 
-        float xOffset = (float) Math.cos(angle.angleRad()) * 10;
-        float yOffset = (float) Math.sin(angle.angleRad()) * 10;
+        final float xOffset = (float) Math.cos(angle.angleRad()) * 10;
+        final float yOffset = (float) Math.sin(angle.angleRad()) * 10;
 
-        setPosition(screen.player.b2body.getPosition().x - screen.player.getWidth() / 2 + xOffset,
-                screen.player.b2body.getPosition().y - screen.player.getHeight() / 2 + yOffset);
+        setPosition(player.b2body.getPosition().x - player.getWidth() / 2 + xOffset,
+                player.b2body.getPosition().y - player.getHeight() / 2 + yOffset);
     }
 
     public void draw(Batch batch) {
-        if(!visible) return;
-
         super.draw(batch);
     }
 }

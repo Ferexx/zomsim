@@ -4,11 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import dev.ferex.zomsim.ZomSim;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.world.WorldManager;
 
 public abstract class BasicCharacter extends Sprite {
-    protected final GameScreen screen;
-    public final World world;
     public final Body b2body;
     public CharacterState currentState = CharacterState.IDLE;
     public CharacterState previousState = CharacterState.IDLE;
@@ -16,16 +14,15 @@ public abstract class BasicCharacter extends Sprite {
     public final Fixture bodyFixture;
     public final Fixture meleeFixture;
 
-    public BasicCharacter(GameScreen screen, World world, int xPos, int yPos, int health, short categoryBit) {
-        this.screen = screen;
-        this.world = world;
+    public BasicCharacter(int xPos, int yPos, int health, short categoryBit) {
         this.health = health;
+        World world = WorldManager.getInstance().getWorld();
 
         final BodyDef bdef = new BodyDef();
         bdef.linearDamping = 10f;
         bdef.position.set(xPos, yPos);
         bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = this.world.createBody(bdef);
+        b2body = world.createBody(bdef);
 
         final FixtureDef fixtureDef = new FixtureDef();
         final CircleShape shape = new CircleShape();

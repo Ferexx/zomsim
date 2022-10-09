@@ -3,42 +3,45 @@ package dev.ferex.zomsim.characters;
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.math.Vector3;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.ZomSim;
 import dev.ferex.zomsim.characters.pathfinding.SteeringUtils;
 import dev.ferex.zomsim.objectives.*;
-import dev.ferex.zomsim.screens.GameScreen;
 import dev.ferex.zomsim.weapons.AmmoType;
-import dev.ferex.zomsim.weapons.BasicWeapon;
-import dev.ferex.zomsim.weapons.Bullet;
+import dev.ferex.zomsim.weapons.Weapon;
 import dev.ferex.zomsim.weapons.WeaponSlot;
-import dev.ferex.zomsim.weapons.guns.BasicGun;
 import dev.ferex.zomsim.weapons.guns.Rifle;
 import dev.ferex.zomsim.weapons.melee.Knife;
-import dev.ferex.zomsim.world.interactable.InteractableInterface;
+import dev.ferex.zomsim.world.EventHandler;
+import dev.ferex.zomsim.world.interactable.Interactable;
 import dev.ferex.zomsim.world.interactable.WeaponSpawn;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player extends BasicCharacter implements Location<Vector2> {
+
+    private static Player instance;
     private float stateTimer = 0;
-    public InteractableInterface inContactWith;
+    public Interactable inContactWith;
     public BasicZombie inContactWithZombie;
 
-    public BasicWeapon primaryWeapon = null;
-    public BasicWeapon secondaryWeapon = null;
-    public BasicWeapon meleeWeapon = new Knife();
+    public Weapon primaryWeapon = null;
+    public Weapon secondaryWeapon = null;
+    public Weapon meleeWeapon = new Knife();
     public WeaponSlot activeWeaponSlot = WeaponSlot.MELEE;
     public boolean isAttacking = false;
 
     public CollectObjective collectObjective = new CollectObjective(ThreadLocalRandom.current().nextInt(4, 8 + 1));
     public RescueObjective rescueObjective = new RescueObjective();
     public KillObjective killObjective = new KillObjective(ThreadLocalRandom.current().nextInt(5, 10 + 1));
-    public EscapeObjective escapeObjective;
-    public BasicObjective trackedObjective = rescueObjective;
+    public EscapeObjective escapeObjective = new EscapeObjective();
+
+    private ObjectivePointer objectivePointer;
 
     private final Animation<TextureAtlas.AtlasRegion> knife_idle;
     private final Animation<TextureAtlas.AtlasRegion> pistol_idle;
@@ -57,8 +60,8 @@ public class Player extends BasicCharacter implements Location<Vector2> {
     private final Animation<TextureAtlas.AtlasRegion> shotgun_reload;
 
 
-    public Player(World world, int xPos, int yPos, GameScreen screen) {
-        super(screen, world, xPos, yPos, 100, ZomSim.PLAYER_BIT);
+    private Player() {
+        super(0, 0, 100, ZomSim.PLAYER_BIT);
         bodyFixture.setUserData("player");
         meleeFixture.setUserData("player_melee");
 
@@ -86,48 +89,85 @@ public class Player extends BasicCharacter implements Location<Vector2> {
         setOriginCenter();
     }
 
+    public static Player getInstance() {
+        if (instance == null) {
+            instance = new Player();
+        }
+        return instance;
+    }
+
+    public void attack() {
+        getActiveWeapon().attack();
+    }
+
+    public void move(Vector2 vector2) {
+        b2body.setLinearVelocity(vector2);
+    }
+
+    public void teleport(Vector2 vector2) {
+        b2body.setTransform(vector2, b2body.getAngle());
+    }
+
+    public void face(Vector2 angle) {
+        setRotation(angle.angleDeg());
+        b2body.setTransform(b2body.getPosition(), angle.angleRad());
+    }
+
     public void interact() {
         if(inContactWith != null)
             inContactWith.interact();
+    }
+
+    public void showObjectivePointer(Vector2 location) {
+        objectivePointer = new ObjectivePointer(location);
+    }
+
+    public void hideObjectivePointer() {
+        objectivePointer = null;
+    }
+
+    public Vector3 getVector3Position() {
+        return new Vector3(b2body.getPosition().x, b2body.getPosition().y, 0);
     }
 
     @Override
     public void update(float delta) {
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(delta));
-
-        final BasicWeapon activeWeapon = getActiveWeapon();
-        if(activeWeapon.isReloading()) {
-            final BasicGun activeGun = (BasicGun) activeWeapon;
-            activeGun.reloadProgress += delta * 1000;
-            if(activeGun.reloadProgress > activeGun.reloadTimeMs)
-                activeGun.endReload();
+        if(rescueObjective.isInProgress() || escapeObjective.isInProgress()) {
+            objectivePointer.update();
         }
 
-        if(isAttacking && !getActiveWeapon().isReloading()) {
-            switch (activeWeaponSlot) {
-                case PRIMARY:
-                    if(primaryWeapon.attack()) {
-                        screen.entityHandler.bullets.add(new Bullet(screen, world, primaryWeapon.damage));
-                    }
+        getActiveWeapon().update(delta);
+
+        if(stateTimer % 1000 < 100) {
+            switch (currentState) {
+                case RUNNING:
+                    EventHandler.getInstance().onPlayerRun();
                     break;
-                case SECONDARY:
-                    if(secondaryWeapon.attack()) {
-                        screen.entityHandler.bullets.add(new Bullet(screen, world, secondaryWeapon.damage));
-                    }
+                case WALKING:
+                    EventHandler.getInstance().onPlayerWalk();
                     break;
-                case MELEE:
-                    if(meleeWeapon.attack()) {
-                        if(inContactWithZombie != null)
-                            inContactWithZombie.health -= meleeWeapon.damage;
-                    }
+                case ATTACKING:
+                    EventHandler.getInstance().onPlayerAttack();
+                    break;
+                case RELOADING:
+                    EventHandler.getInstance().onPlayerReload();
+                    break;
             }
         }
 
-        if(collectObjective.complete && killObjective.complete && rescueObjective.complete && escapeObjective == null) {
-            escapeObjective = screen.entityHandler.escapeObjective;
-            trackedObjective = escapeObjective;
-            escapeObjective.inProgress = true;
+        if(collectObjective.isComplete() && killObjective.isComplete() && rescueObjective.isComplete() && !escapeObjective.isInProgress()) {
+            escapeObjective.setEscapeLocation(EntityHandler.getInstance().escapeObjective.escapeLocation);
+            escapeObjective.start();
+        }
+    }
+
+    @Override
+    public void draw(Batch batch) {
+        super.draw(batch);
+        if(rescueObjective.isInProgress() || escapeObjective.isInProgress()) {
+            objectivePointer.draw(batch);
         }
     }
 
@@ -216,7 +256,7 @@ public class Player extends BasicCharacter implements Location<Vector2> {
         return this;
     }
 
-    public BasicWeapon getActiveWeapon() {
+    public Weapon getActiveWeapon() {
         switch(activeWeaponSlot) {
             case PRIMARY:
                 return primaryWeapon;
@@ -228,32 +268,30 @@ public class Player extends BasicCharacter implements Location<Vector2> {
         return meleeWeapon;
     }
 
-    public void addWeapon(BasicWeapon weapon) {
-        switch(weapon.weaponSlot) {
+    public void addWeapon(Weapon weapon) {
+        switch(weapon.getSlot()) {
             case PRIMARY:
                 if(primaryWeapon != null) {
-                    screen.entityHandler.weapons.add(new WeaponSpawn(screen, (int) getX(), (int) getY(), 8, 8, primaryWeapon));
+                    EntityHandler.getInstance().weapons.add(new WeaponSpawn((int) getX(), (int) getY(), 8, 8, primaryWeapon));
                 }
                 primaryWeapon = weapon;
                 break;
             case SECONDARY:
                 if(secondaryWeapon != null) {
-                    screen.entityHandler.weapons.add(new WeaponSpawn(screen, (int) getX(), (int) getY(), 8, 8, secondaryWeapon));
+                    EntityHandler.getInstance().weapons.add(new WeaponSpawn((int) getX(), (int) getY(), 8, 8, secondaryWeapon));
                 }
                 secondaryWeapon = weapon;
                 break;
             case MELEE:
                 if(meleeWeapon != null) {
-                    screen.entityHandler.weapons.add(new WeaponSpawn(screen, (int) getX(), (int) getY(), 8, 8, meleeWeapon));
+                    EntityHandler.getInstance().weapons.add(new WeaponSpawn((int) getX(), (int) getY(), 8, 8, meleeWeapon));
                 }
                 meleeWeapon = weapon;
         }
     }
 
     public void reload() {
-        if(activeWeaponSlot != WeaponSlot.MELEE) {
-            ((BasicGun) getActiveWeapon()).beginReload();
-        }
+        getActiveWeapon().reload();
     }
 
     public void equipWeapon(WeaponSlot slot) {
@@ -273,31 +311,20 @@ public class Player extends BasicCharacter implements Location<Vector2> {
     }
 
     public boolean addAmmo(AmmoType type, int amount) {
-        switch(type) {
-            case RIFLE:
-                if(primaryWeapon != null && primaryWeapon.ammoType == AmmoType.RIFLE) {
-                    ((BasicGun) primaryWeapon).reserveAmmo += amount;
-                    return true;
-                }
-                break;
-            case SHOTGUN:
-                if(primaryWeapon != null && primaryWeapon.ammoType == AmmoType.SHOTGUN) {
-                    ((BasicGun) primaryWeapon).reserveAmmo += amount;
-                    return true;
-                }
-                break;
-            case PISTOL:
-                if(secondaryWeapon != null && secondaryWeapon.ammoType == AmmoType.PISTOL) {
-                    ((BasicGun) secondaryWeapon).reserveAmmo += amount;
-                    return true;
-                }
+        if(primaryWeapon.getAmmoType() == type) {
+            primaryWeapon.addAmmo(amount);
+            return true;
+        }
+        if(secondaryWeapon.getAmmoType() == type) {
+            secondaryWeapon.addAmmo(amount);
+            return true;
         }
         return false;
     }
 
     public void takeDamage(int damage) {
         health -= damage;
-        screen.game.assetManager.get("audio/sounds/player_hurt.wav", Sound.class).play();
+        ZomSim.getInstance().assetManager.get("audio/sounds/player_hurt.wav", Sound.class).play();
     }
 
 }

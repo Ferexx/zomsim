@@ -12,9 +12,8 @@ import dev.ferex.zomsim.ZomSim;
 public class MainMenuScreen extends MenuScreen {
     final Music menuMusic;
 
-    public MainMenuScreen(final ZomSim game) {
-        super(game);
-
+    public MainMenuScreen() {
+        final ZomSim game = ZomSim.getInstance();
         menuMusic = game.assetManager.get("audio/music/MenuMusic.mp3", Music.class);
         menuMusic.setLooping(true);
         menuMusic.play();
@@ -30,7 +29,9 @@ public class MainMenuScreen extends MenuScreen {
         playButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game));
+                GameScreen.clearInstance();
+                game.setScreen(GameScreen.getInstance());
+                GameScreen.getInstance().loadLevel("maps/level1/level1.tmx");
                 dispose();
             }
             @Override
@@ -54,6 +55,7 @@ public class MainMenuScreen extends MenuScreen {
     public void render(float delta) {
         super.render(delta);
 
+        ZomSim game = ZomSim.getInstance();
         game.batch.begin();
         game.batch.end();
     }

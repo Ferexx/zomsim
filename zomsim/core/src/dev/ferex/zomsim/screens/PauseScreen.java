@@ -11,12 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import dev.ferex.zomsim.ZomSim;
 
 public class PauseScreen extends MenuScreen {
-    private GameScreen screen;
 
-
-    public PauseScreen(final ZomSim game, final GameScreen screen) {
-        super(game);
-        this.screen = screen;
+    public PauseScreen() {
 
         final Label.LabelStyle titleLabelStyle = new Label.LabelStyle();
         titleLabelStyle.font = font;
@@ -29,8 +25,7 @@ public class PauseScreen extends MenuScreen {
         playButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(screen);
-                screen.controls.paused = false;
+                ZomSim.getInstance().unpause();
                 dispose();
             }
             @Override
@@ -72,7 +67,7 @@ public class PauseScreen extends MenuScreen {
         super.render(delta);
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            game.setScreen(screen);
+            ZomSim.getInstance().setScreen(GameScreen.getInstance());
         }
     }
 

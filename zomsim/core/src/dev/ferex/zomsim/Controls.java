@@ -5,19 +5,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import dev.ferex.zomsim.characters.Player;
-import dev.ferex.zomsim.screens.GameScreen;
-import dev.ferex.zomsim.screens.PauseScreen;
 import dev.ferex.zomsim.weapons.WeaponSlot;
+import dev.ferex.zomsim.world.WorldManager;
 
 public class Controls {
-    private final GameScreen screen;
+
+    private static Controls instance;
     private final Player player;
 
-    public boolean paused = false;
+    private Controls() {
+        player = Player.getInstance();
+    }
 
-    public Controls(GameScreen screen) {
-        this.screen = screen;
-        this.player = screen.player;
+    public static Controls getInstance() {
+        if (instance == null) {
+            instance = new Controls();
+        }
+        return instance;
     }
 
     public void update(float delta) {
@@ -25,25 +29,22 @@ public class Controls {
 
         int x = 0, y = 0;
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            x -= 1;
+            x -= 5;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-            x += 1;
+            x += 5;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
-            y += 1;
+            y += 5;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S)) {
-            y -= 1;
+            y -= 5;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
             x *= 2;
             y *= 2;
         }
-        if(x != 0)
-            screen.player.b2body.setLinearVelocity((x * 5), screen.player.b2body.getLinearVelocity().y);
-        if(y != 0)
-            screen.player.b2body.setLinearVelocity(screen.player.b2body.getLinearVelocity().x, (y * 5));
+        if (x != 0 || y != 0) player.move(new Vector2(x, y));
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             player.interact();
@@ -61,23 +62,24 @@ public class Controls {
             player.equipWeapon(WeaponSlot.MELEE);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            if(!paused) {
-                screen.game.setScreen(new PauseScreen(screen.game, screen));
-                paused = true;
-            }
+            ZomSim.getInstance().pause();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
             ZomSim.MODE_DEBUG = !ZomSim.MODE_DEBUG;
         }
 
-        player.isAttacking = Gdx.input.isTouched();
+        if (Gdx.input.isTouched()) {
+            player.attack();
+            player.isAttacking = true;
+        } else {
+            player.isAttacking = false;
+        }
 
         final Vector2 angle = new Vector2(0,0);
-        final Vector3 coordinates = screen.camera.project(new Vector3(screen.player.b2body.getPosition().x, screen.player.b2body.getPosition().y, 0));
+        final Vector3 coordinates = WorldManager.getInstance().camera.project(player.getVector3Position());
         angle.x = Gdx.input.getX() - coordinates.x;
         angle.y = Gdx.graphics.getHeight() - Gdx.input.getY() - coordinates.y + (player.getHeight() / 2);
 
-        player.setRotation(angle.angleDeg());
-        player.b2body.setTransform(player.b2body.getPosition(), angle.angleRad());
+        player.face(angle);
     }
 }

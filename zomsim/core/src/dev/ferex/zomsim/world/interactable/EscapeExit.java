@@ -5,12 +5,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import dev.ferex.zomsim.ZomSim;
+import dev.ferex.zomsim.characters.Player;
 import dev.ferex.zomsim.screens.GameScreen;
 
-public class EscapeExit extends BasicWorldItem implements InteractableInterface {
+public class EscapeExit extends BasicWorldItem {
 
-    public EscapeExit(GameScreen screen, int xPos, int yPos, int width, int height) {
-        super(screen, xPos, yPos, width, height);
+    public EscapeExit(int xPos, int yPos, int width, int height) {
+        super(xPos, yPos, width, height);
         setCategoryFilter(ZomSim.OBJECTIVE_BIT);
 
         fixture.setUserData(this);
@@ -22,8 +23,9 @@ public class EscapeExit extends BasicWorldItem implements InteractableInterface 
     }
 
     public void interact() {
-        if(screen.player.escapeObjective != null && screen.player.escapeObjective.inProgress) {
-            screen.player.escapeObjective.complete = true;
+        Player player = Player.getInstance();
+        if(player.escapeObjective != null && player.escapeObjective.isInProgress()) {
+            GameScreen.getInstance().finishLevel();
         }
     }
 
@@ -43,7 +45,7 @@ public class EscapeExit extends BasicWorldItem implements InteractableInterface 
 
         super.draw(batch);
         if (drawingAnnotation) {
-            if(screen.player.escapeObjective != null)
+            if(Player.getInstance().escapeObjective != null)
                 font.draw(batch, "Press E\n to escape", getX() + getWidth() / 2, getY() + getHeight() / 2);
             else
                 font.draw(batch, "Complete all\nobjectives before\nescaping", getX() + getWidth() / 2, getY() + getHeight() / 2);

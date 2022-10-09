@@ -5,11 +5,12 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import dev.ferex.zomsim.characters.BasicZombie;
+import dev.ferex.zomsim.characters.Player;
 import dev.ferex.zomsim.characters.ZombieInterface;
 import dev.ferex.zomsim.screens.GameScreen;
 import dev.ferex.zomsim.weapons.Bullet;
 import dev.ferex.zomsim.world.interactable.Gate;
-import dev.ferex.zomsim.world.interactable.InteractableInterface;
+import dev.ferex.zomsim.world.interactable.Interactable;
 
 public class ContactListener implements com.badlogic.gdx.physics.box2d.ContactListener {
     private final GameScreen game;
@@ -30,18 +31,18 @@ public class ContactListener implements com.badlogic.gdx.physics.box2d.ContactLi
             if(object.getUserData() == "zombie_melee")
                 ((ZombieInterface) object.getBody().getUserData()).canAttack(true);
 
-            if(object.getUserData() != null && InteractableInterface.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((InteractableInterface) object.getUserData()).playerTouching(true);
-                game.player.inContactWith = (InteractableInterface) object.getUserData();
+            if(object.getUserData() != null && Interactable.class.isAssignableFrom(object.getUserData().getClass())) {
+                ((Interactable) object.getUserData()).playerTouching(true);
+                Player.getInstance().inContactWith = (Interactable) object.getUserData();
             }
         }
 
         if(fixtureA.getUserData() == "player_melee" || fixtureB.getUserData() == "player_melee") {
-            final Fixture player_melee = fixtureA.getUserData() == "player_melee" ? fixtureA : fixtureB;
-            final Fixture object = player_melee == fixtureA ? fixtureB : fixtureA;
+            final Fixture playerMelee = fixtureA.getUserData() == "player_melee" ? fixtureA : fixtureB;
+            final Fixture object = playerMelee == fixtureA ? fixtureB : fixtureA;
 
             if(object.getUserData() != null && object.getUserData() == "zombie_body") {
-                game.player.inContactWithZombie = (BasicZombie) object.getBody().getUserData();
+                Player.getInstance().inContactWithZombie = (BasicZombie) object.getBody().getUserData();
             }
         }
 
@@ -75,18 +76,18 @@ public class ContactListener implements com.badlogic.gdx.physics.box2d.ContactLi
             if(object.getUserData() == "zombie_melee")
                 ((ZombieInterface) object.getBody().getUserData()).canAttack(false);
 
-            if(object.getUserData() != null && InteractableInterface.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((InteractableInterface) object.getUserData()).playerTouching(false);
-                game.player.inContactWith = null;
+            if(object.getUserData() != null && Interactable.class.isAssignableFrom(object.getUserData().getClass())) {
+                ((Interactable) object.getUserData()).playerTouching(false);
+                Player.getInstance().inContactWith = null;
             }
         }
 
         if(fixtureA.getUserData() == "player_melee" || fixtureB.getUserData() == "player_melee") {
-            final Fixture player_melee = fixtureA.getUserData() == "player_melee" ? fixtureA : fixtureB;
-            final Fixture object = player_melee == fixtureA ? fixtureB : fixtureA;
+            final Fixture playerMelee = fixtureA.getUserData() == "player_melee" ? fixtureA : fixtureB;
+            final Fixture object = playerMelee == fixtureA ? fixtureB : fixtureA;
 
             if(object.getUserData() != null && BasicZombie.class.isAssignableFrom(object.getUserData().getClass())) {
-                game.player.inContactWithZombie = null;
+                Player.getInstance().inContactWithZombie = null;
             }
         }
     }

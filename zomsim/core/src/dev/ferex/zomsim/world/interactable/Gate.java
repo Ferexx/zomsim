@@ -6,15 +6,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Array;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.characters.pathfinding.Tile;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.world.EventHandler;
 
-public class Gate extends BasicWorldItem implements InteractableInterface {
+public class Gate extends BasicWorldItem {
     public boolean closed = true;
     private boolean vertical;
 
-    public Gate(GameScreen screen, int xPos, int yPos, int width, int height, boolean vertical) {
-        super(screen, xPos, yPos, width, height);
+    public Gate(int xPos, int yPos, int width, int height, boolean vertical) {
+        super(xPos, yPos, width, height);
         this.vertical = vertical;
         fixture.setUserData(this);
         setBounds(0, 0, 8, 8);
@@ -31,39 +32,40 @@ public class Gate extends BasicWorldItem implements InteractableInterface {
     }
 
     public void interact() {
+        EntityHandler entityHandler = EntityHandler.getInstance();
         closed = !closed;
         if(closed) {
             fixture.setSensor(false);
             setTexture((new Texture(Gdx.files.internal("sprites/world/gate_closed" + (vertical ? "_vertical.png" : ".png")))));
-            Array<Connection<Tile>> connections = screen.entityHandler.levelGraph.getConnections(screen.entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2), (int) ((int) bounds.getY() + bounds.getHeight() / 2)));
+            Array<Connection<Tile>> connections = entityHandler.levelGraph.getConnections(entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2), (int) ((int) bounds.getY() + bounds.getHeight() / 2)));
             while(connections.size != 0) {
                 Connection<Tile> tileConnection = connections.first();
-                screen.entityHandler.levelGraph.disconnectTiles(tileConnection.getFromNode(), tileConnection.getToNode());
-                screen.entityHandler.levelGraph.disconnectTiles(tileConnection.getToNode(), tileConnection.getFromNode());
+                entityHandler.levelGraph.disconnectTiles(tileConnection.getFromNode(), tileConnection.getToNode());
+                entityHandler.levelGraph.disconnectTiles(tileConnection.getToNode(), tileConnection.getFromNode());
             }
         }
         else {
             fixture.setSensor(true);
             setTexture(new Texture(Gdx.files.internal("sprites/world/gate_open" + (vertical ? "_vertical.png" : ".png"))));
 
-            Tile gateTile = screen.entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2), (int) ((int) bounds.getY() + bounds.getHeight() / 2));
+            Tile gateTile = entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2), (int) ((int) bounds.getY() + bounds.getHeight() / 2));
             if(vertical) {
-                Tile leftTile = screen.entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2) - 8, (int) ((int) bounds.getY() + bounds.getHeight() / 2));
-                Tile rightTile = screen.entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2) + 8, (int) ((int) bounds.getY() + bounds.getHeight() / 2));
-                screen.entityHandler.levelGraph.connectTiles(gateTile, rightTile);
-                screen.entityHandler.levelGraph.connectTiles(rightTile, gateTile);
-                screen.entityHandler.levelGraph.connectTiles(gateTile, leftTile);
-                screen.entityHandler.levelGraph.connectTiles(leftTile, gateTile);
+                Tile leftTile = entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2) - 8, (int) ((int) bounds.getY() + bounds.getHeight() / 2));
+                Tile rightTile = entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2) + 8, (int) ((int) bounds.getY() + bounds.getHeight() / 2));
+                entityHandler.levelGraph.connectTiles(gateTile, rightTile);
+                entityHandler.levelGraph.connectTiles(rightTile, gateTile);
+                entityHandler.levelGraph.connectTiles(gateTile, leftTile);
+                entityHandler.levelGraph.connectTiles(leftTile, gateTile);
             } else {
-                Tile aboveTile = screen.entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2), (int) ((int) bounds.getY() + bounds.getHeight() / 2) + 8);
-                Tile belowTile = screen.entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2), (int) ((int) bounds.getY() + bounds.getHeight() / 2) - 8);
-                screen.entityHandler.levelGraph.connectTiles(gateTile, belowTile);
-                screen.entityHandler.levelGraph.connectTiles(belowTile, gateTile);
-                screen.entityHandler.levelGraph.connectTiles(gateTile, aboveTile);
-                screen.entityHandler.levelGraph.connectTiles(aboveTile, gateTile);
+                Tile aboveTile = entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2), (int) ((int) bounds.getY() + bounds.getHeight() / 2) + 8);
+                Tile belowTile = entityHandler.levelGraph.getTile((int) ((int) bounds.getX() + bounds.getWidth() / 2), (int) ((int) bounds.getY() + bounds.getHeight() / 2) - 8);
+                entityHandler.levelGraph.connectTiles(gateTile, belowTile);
+                entityHandler.levelGraph.connectTiles(belowTile, gateTile);
+                entityHandler.levelGraph.connectTiles(gateTile, aboveTile);
+                entityHandler.levelGraph.connectTiles(aboveTile, gateTile);
             }
         }
-        screen.eventHandler.onGateChanged(this);
+        EventHandler.getInstance().onGateChanged(this);
         setPosition(getX(), getY());
     }
 

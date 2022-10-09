@@ -23,11 +23,12 @@ import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.ZomSim;
 import dev.ferex.zomsim.characters.pathfinding.LevelGraph;
 import dev.ferex.zomsim.characters.pathfinding.SteeringUtils;
 import dev.ferex.zomsim.characters.pathfinding.Tile;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.world.WorldManager;
 import dev.ferex.zomsim.world.interactable.WeaponSpawn;
 import zomlink.ZombieEvent;
 import zomlink.ZombieListener;
@@ -68,9 +69,9 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
     SteeringBehavior<Vector2> behaviour;
     SteeringAcceleration<Vector2> steeringOutput = new SteeringAcceleration<>(new Vector2());
 
-    public BasicZombie(final GameScreen screen, World world, int xPos, int yPos){
-        super(screen, world, xPos + 4, yPos + 4, 50, ZomSim.ENEMY_BIT);
-        levelGraph = screen.entityHandler.levelGraph;
+    public BasicZombie(int xPos, int yPos){
+        super(xPos + 4, yPos + 4, 50, ZomSim.ENEMY_BIT);
+        levelGraph = EntityHandler.getInstance().levelGraph;
 
         b2body.setUserData(this);
         bodyFixture.setUserData("zombie_body");
@@ -108,6 +109,10 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
 
     @Override
     public void update(float delta) {
+        Player player = Player.getInstance();
+        World world = WorldManager.getInstance().getWorld();
+        EntityHandler entityHandler = EntityHandler.getInstance();
+
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(delta));
 
@@ -117,31 +122,31 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
         if(canAttack) {
             facePlayer();
             if(stateTimer - ATTACK_TIME > 0) {
-                screen.player.takeDamage(ATTACK_DAMAGE);
+                player.takeDamage(ATTACK_DAMAGE);
                 stateTimer = 0;
             }
         }
 
         if(health <= 0) {
-            screen.world.destroyBody(b2body);
-            screen.entityHandler.zombies.removeValue(this, true);
-            screen.player.killObjective.addKill();
+            world.destroyBody(b2body);
+            entityHandler.zombies.removeValue(this, true);
+            player.killObjective.addKill();
         }
 
-        float distance = Vector2.dst(b2body.getPosition().x, b2body.getPosition().y, screen.player.b2body.getPosition().x, screen.player.b2body.getPosition().y);
+        float distance = Vector2.dst(b2body.getPosition().x, b2body.getPosition().y, player.b2body.getPosition().x, player.b2body.getPosition().y);
         if(stateTimer % 10 < 0.01 && stateTimer > 1 && distance < 50) {
-            if(b2body.getPosition().x < screen.player.b2body.getPosition().x) distance *= -1;
-            long soundID = screen.game.assetManager.get("audio/sounds/zombie_growl.wav", Sound.class).play();
-            screen.game.assetManager.get("audio/sounds/zombie_growl.wav", Sound.class).setPan(soundID, distance / 50,  1/(Math.abs(distance) / 50));
+            if(b2body.getPosition().x < player.b2body.getPosition().x) distance *= -1;
+            long soundID = ZomSim.getInstance().assetManager.get("audio/sounds/zombie_growl.wav", Sound.class).play();
+            ZomSim.getInstance().assetManager.get("audio/sounds/zombie_growl.wav", Sound.class).setPan(soundID, distance / 50,  1/(Math.abs(distance) / 50));
         }
 
-        if(b2body.getPosition().dst(screen.player.b2body.getPosition()) <= RANGE_SIGHT) {
+        if(b2body.getPosition().dst(player.b2body.getPosition()) <= RANGE_SIGHT) {
             for (int i = -60; i <= 60; i++) {
                 closestFraction = 0;
                 closestFixture = null;
                 float x = (float) (Math.cos(b2body.getAngle() + (i * Math.PI / 180)) * RANGE_SIGHT);
                 float y = (float) (Math.sin(b2body.getAngle() + (i * Math.PI / 180)) * RANGE_SIGHT);
-                screen.world.rayCast(rayCastCallback, new Vector2(b2body.getPosition().x, b2body.getPosition().y), new Vector2(b2body.getPosition().x + x, b2body.getPosition().y + y));
+                world.rayCast(rayCastCallback, new Vector2(b2body.getPosition().x, b2body.getPosition().y), new Vector2(b2body.getPosition().x + x, b2body.getPosition().y + y));
                 if (closestFixture != null && closestFixture.getUserData() == "player") {
                     facePlayer();
                     seeingPlayer = true;
@@ -154,8 +159,8 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
                 previouslySeeingPlayer = true;
             }
             if (!seeingPlayer && previouslySeeingPlayer) {
-                String[] array = {String.valueOf(screen.player.b2body.getPosition().x), String.valueOf(screen.player.b2body.getPosition().y)};
-                addEvent("leftVision", new Array<String>(array));
+                String[] array = {String.valueOf(player.b2body.getPosition().x), String.valueOf(player.b2body.getPosition().y)};
+                addEvent("leftVision", new Array<>(array));
                 previouslySeeingPlayer = false;
             }
         }
@@ -201,7 +206,7 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
 
     public boolean chasePlayer() {
         try {
-            Arrive<Vector2> arriveSB = new Arrive<>(this, screen.player)
+            Arrive<Vector2> arriveSB = new Arrive<>(this, Player.getInstance())
                     .setTimeToTarget(0.01f)
                     .setArrivalTolerance(2f)
                     .setDecelerationRadius(10);
@@ -222,10 +227,11 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
     }
 
     public boolean goToClosestWeapon() {
+        EntityHandler entityHandler = EntityHandler.getInstance();
         try {
             WeaponSpawn closestWeapon = null;
             float closestDistance = 10000;
-            for (WeaponSpawn weapon : screen.entityHandler.weapons) {
+            for (WeaponSpawn weapon : entityHandler.weapons) {
                 float distance = Vector2.dst(b2body.getPosition().x, b2body.getPosition().y, weapon.getBoundingRectangle().x + 4, weapon.getBoundingRectangle().y + 4);
                 if (distance < closestDistance) {
                     closestWeapon = weapon;
@@ -234,7 +240,7 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
             }
 
             assert closestWeapon != null;
-            return moveTo(screen.entityHandler.levelGraph.getTile(closestWeapon.body.getPosition()));
+            return moveTo(entityHandler.levelGraph.getTile(closestWeapon.body.getPosition()));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -242,10 +248,11 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
     }
 
     public boolean goToClosestZombie() {
+        EntityHandler entityHandler = EntityHandler.getInstance();
         try {
             BasicZombie closestZombie = null;
             float closestDistance = 10000;
-            for (BasicZombie zombie : screen.entityHandler.zombies) {
+            for (BasicZombie zombie : entityHandler.zombies) {
                 if (!zombie.equals(this)) {
                     float distance = Vector2.dst(b2body.getPosition().x, b2body.getPosition().y, zombie.getPosition().x + 4, zombie.getPosition().y + 4);
                     if (distance < closestDistance) {
@@ -256,7 +263,7 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
             }
 
             assert closestZombie != null;
-            return moveTo(screen.entityHandler.levelGraph.getTile(closestZombie.b2body.getPosition()));
+            return moveTo(entityHandler.levelGraph.getTile(closestZombie.b2body.getPosition()));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -264,17 +271,18 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
     }
 
     public boolean goToLocation(float x, float y) {
-        return moveTo(screen.entityHandler.levelGraph.getTile((int) x, (int) y));
+        return moveTo(EntityHandler.getInstance().levelGraph.getTile((int) x, (int) y));
     }
 
     public boolean goToPlayer() {
-        return moveTo(screen.entityHandler.levelGraph.getTile(screen.player.b2body.getPosition()));
+        return moveTo(EntityHandler.getInstance().levelGraph.getTile(Player.getInstance().b2body.getPosition()));
     }
 
     public void facePlayer() {
+        Player player = Player.getInstance();
         Vector2 angle = new Vector2(0, 0);
-        angle.x = screen.player.b2body.getPosition().x - b2body.getPosition().x;
-        angle.y = screen.player.b2body.getPosition().y - b2body.getPosition().y;
+        angle.x = player.b2body.getPosition().x - b2body.getPosition().x;
+        angle.y = player.b2body.getPosition().y - b2body.getPosition().y;
         setRotation(angle.angleDeg());
         b2body.setTransform(b2body.getPosition(), angle.angleRad());
     }
@@ -320,7 +328,7 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
 
     @Override
     public int getPlayerHealth() {
-        return screen.player.health;
+        return Player.getInstance().health;
     }
 
     // ====================== [ PATHFINDING ] ========================
@@ -400,8 +408,8 @@ public class BasicZombie extends BasicCharacter implements ZombieInterface, Zomb
             float x = (float) (Math.cos(b2body.getAngle()) * RANGE_SIGHT);
             float y = (float) (Math.sin(b2body.getAngle()) * RANGE_SIGHT);
             renderer.begin(ShapeRenderer.ShapeType.Line);
-            Vector3 coordinates = screen.camera.project(new Vector3(b2body.getPosition().x, b2body.getPosition().y, 0));
-            Vector3 coordinates2 = screen.camera.project(new Vector3(b2body.getPosition().x + x, b2body.getPosition().y + y, 0));
+            Vector3 coordinates = WorldManager.getInstance().camera.project(new Vector3(b2body.getPosition().x, b2body.getPosition().y, 0));
+            Vector3 coordinates2 = WorldManager.getInstance().camera.project(new Vector3(b2body.getPosition().x + x, b2body.getPosition().y + y, 0));
             renderer.line(new Vector2(coordinates.x, coordinates.y), new Vector2(coordinates2.x, coordinates2.y));
             renderer.end();
         }

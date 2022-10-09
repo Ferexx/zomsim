@@ -4,13 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.ZomSim;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.characters.Player;
 
-public class CollectObjectiveItem extends BasicWorldItem implements InteractableInterface {
+public class CollectObjectiveItem extends BasicWorldItem {
 
-    public CollectObjectiveItem(GameScreen screen, int xPos, int yPos, int width, int height) {
-        super(screen, xPos, yPos, width, height);
+    public CollectObjectiveItem(int xPos, int yPos, int width, int height) {
+        super(xPos, yPos, width, height);
         setCategoryFilter(ZomSim.OBJECTIVE_BIT);
 
         fixture.setUserData(this);
@@ -22,7 +23,7 @@ public class CollectObjectiveItem extends BasicWorldItem implements Interactable
     }
 
     public void interact() {
-        screen.player.collectObjective.acquireItem();
+        Player.getInstance().collectObjective.acquireItem();
         destroy();
     }
 
@@ -34,7 +35,7 @@ public class CollectObjectiveItem extends BasicWorldItem implements Interactable
         body.destroyFixture(fixture);
         visible = false;
         drawingAnnotation = false;
-        screen.entityHandler.fetchObjectiveItems.removeValue(this, false);
+        EntityHandler.getInstance().fetchObjectiveItems.removeValue(this, false);
     }
 
     @Override

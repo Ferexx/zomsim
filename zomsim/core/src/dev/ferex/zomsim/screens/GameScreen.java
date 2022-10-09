@@ -3,58 +3,45 @@ package dev.ferex.zomsim.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import dev.ferex.zomsim.Controls;
 import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.ZomSim;
 import dev.ferex.zomsim.characters.Player;
 import dev.ferex.zomsim.hud.HUD;
 import dev.ferex.zomsim.world.EventHandler;
-import dev.ferex.zomsim.world.WorldCreator;
+import dev.ferex.zomsim.world.WorldManager;
 
 public class GameScreen implements Screen {
-    public final ZomSim game;
-    public final EntityHandler entityHandler = new EntityHandler(this);
-    public Player player;
-    public final Controls controls;
-    public final EventHandler eventHandler;
 
-    // Tiled Variables
-    public final TiledMap currentMap;
-    private final TiledMapRenderer mapRenderer;
+    private static GameScreen instance;
 
-    // Box2D Variables
-    public final World world;
-    private final Box2DDebugRenderer b2dr;
-    public final WorldCreator worldCreator;
-
-    public final OrthographicCamera camera;
     public final HUD hud;
 
-    public GameScreen(ZomSim game) {
-        this.game = game;
+    private GameScreen() {
+        Controls.getInstance();
+        EventHandler.getInstance();
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, ZomSim.V_WIDTH, ZomSim.V_HEIGHT);
-        camera.zoom = 0.1f;
+        hud = new HUD();
+    }
 
-        currentMap = new TmxMapLoader().load("maps/level1/level1.tmx");
-        mapRenderer = new OrthogonalTiledMapRenderer(currentMap, 1);
+    public static GameScreen getInstance() {
+        if (instance == null) {
+            instance = new GameScreen();
+        }
+        return instance;
+    }
 
-        world = new World(new Vector2(0, 0), true);
-        worldCreator = new WorldCreator(this, world, currentMap);
-        b2dr = new Box2DDebugRenderer();
-        controls = new Controls(this);
-        eventHandler = new EventHandler(this);
+    public static void clearInstance() {
+        if(instance == null) return;
+        instance.dispose();
+        instance = null;
+    }
 
-        hud = new HUD(this, game.batch);
+    public void loadLevel(final String fileName) {
+        final Vector2 playerSpawn = WorldManager.getInstance().loadWorld(fileName);
+        Player.getInstance();
+        Player.getInstance().teleport(playerSpawn);
     }
 
     @Override
@@ -63,21 +50,11 @@ public class GameScreen implements Screen {
     }
 
     public void update(float delta) {
-        controls.update(delta);
+        Controls.getInstance().update(delta);
+        Player.getInstance().update(delta);
+        EntityHandler.getInstance().update(delta);
 
-        world.step(1/64f, 6, 2);
-
-        player.update(delta);
-        entityHandler.update(delta);
-        eventHandler.update(delta);
-        hud.update(delta);
-
-        camera.position.x = player.b2body.getPosition().x;
-        camera.position.y = player.b2body.getPosition().y;
-        cameraClamp();
-        camera.update();
-
-        mapRenderer.setView(camera);
+        WorldManager.getInstance().update(delta);
     }
 
     @Override
@@ -87,17 +64,12 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        mapRenderer.render();
+        WorldManager.getInstance().render();
 
-        if(ZomSim.MODE_DEBUG) {
-            b2dr.render(world, camera.combined);
-        }
-        //b2dr.render(world, camera.combined);
-
-        game.batch.setProjectionMatrix(camera.combined);
+        final ZomSim game = ZomSim.getInstance();
         game.batch.begin();
-        entityHandler.draw(game.batch);
-        player.draw(game.batch);
+        EntityHandler.getInstance().draw(game.batch);
+        Player.getInstance().draw(game.batch);
 
         game.batch.end();
 
@@ -105,11 +77,7 @@ public class GameScreen implements Screen {
         hud.stage.draw();
 
         if(playerDied()) {
-            game.setScreen(new DeadScreen(game));
-            dispose();
-        }
-        if(playerSurvived()) {
-            game.setScreen(new WinScreen(game));
+            game.setScreen(new DeadScreen());
             dispose();
         }
     }
@@ -136,33 +104,15 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        currentMap.dispose();
-        b2dr.dispose();
-        world.dispose();
-    }
-
-    public void cameraClamp() {
-        if((camera.position.x - (camera.viewportWidth * camera.zoom) / 2) < 0) {
-            camera.position.x = (camera.viewportWidth / 2) * camera.zoom;
-        }
-        if((camera.position.x + (camera.viewportWidth * camera.zoom) / 2) > currentMap.getProperties().get("width", Integer.class) * currentMap.getProperties().get("tilewidth", Integer.class)) {
-            camera.position.x = currentMap.getProperties().get("width", Integer.class) * currentMap.getProperties().get("tilewidth", Integer.class) - (camera.viewportWidth * camera.zoom) / 2;
-        }
-        if((camera.position.y - (camera.viewportHeight * camera.zoom) / 2) < 0) {
-            camera.position.y = (camera.viewportHeight / 2) * camera.zoom;
-        }
-        if((camera.position.y + (camera.viewportHeight * camera.zoom) / 2) > currentMap.getProperties().get("height", Integer.class) * currentMap.getProperties().get("tileheight", Integer.class)) {
-            camera.position.y = currentMap.getProperties().get("height", Integer.class) * currentMap.getProperties().get("tileheight", Integer.class) - (camera.viewportHeight * camera.zoom) / 2;
-        }
+        WorldManager.getInstance().dispose();
     }
 
     public boolean playerDied() {
-        return player.health <= 0;
+        return Player.getInstance().health <= 0;
     }
-    public boolean playerSurvived() {
-        if(player.escapeObjective != null) {
-            return player.escapeObjective.complete;
-        }
-        return false;
+
+    public void finishLevel() {
+        ZomSim.getInstance().setScreen(new WinScreen());
+        dispose();
     }
 }

@@ -4,18 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.ZomSim;
-import dev.ferex.zomsim.screens.GameScreen;
+import dev.ferex.zomsim.characters.Player;
 import dev.ferex.zomsim.weapons.AmmoType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Ammo extends BasicWorldItem implements InteractableInterface {
-    private AmmoType type;
-    private int amount;
+public class Ammo extends BasicWorldItem {
+    private final AmmoType type;
+    private final int amount;
 
-    public Ammo(GameScreen screen, int xPos, int yPos, int width, int height) {
-        super(screen, xPos, yPos, width, height);
+    public Ammo(int xPos, int yPos, int width, int height) {
+        super(xPos, yPos, width, height);
         setCategoryFilter(ZomSim.WEAPON_BIT);
 
         fixture.setUserData(this);
@@ -45,7 +46,7 @@ public class Ammo extends BasicWorldItem implements InteractableInterface {
 
     @Override
     public void interact() {
-        if(screen.player.addAmmo(type, amount)) destroy();
+        if(Player.getInstance().addAmmo(type, amount)) destroy();
     }
 
     @Override
@@ -58,7 +59,7 @@ public class Ammo extends BasicWorldItem implements InteractableInterface {
         body.destroyFixture(fixture);
         drawingAnnotation = false;
         visible = false;
-        screen.entityHandler.ammo.removeValue(this, false);
+        EntityHandler.getInstance().ammo.removeValue(this, false);
     }
 
     @Override

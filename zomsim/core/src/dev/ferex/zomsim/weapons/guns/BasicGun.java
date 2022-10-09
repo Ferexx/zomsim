@@ -1,22 +1,23 @@
 package dev.ferex.zomsim.weapons.guns;
 
 import com.badlogic.gdx.audio.Sound;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.weapons.AmmoType;
 import dev.ferex.zomsim.weapons.BasicWeapon;
 import dev.ferex.zomsim.weapons.WeaponSlot;
 import dev.ferex.zomsim.weapons.WeaponType;
 
-public class BasicGun extends BasicWeapon {
-    public int reserveAmmo;
-    public int magazineSize;
-    public int bulletsInMagazine;
+public abstract class BasicGun extends BasicWeapon {
+    protected int reserveAmmo;
+    protected int magazineSize;
+    protected int bulletsInMagazine;
 
-    public final int reloadTimeMs;
-    public int reloadProgress = 0;
-    public boolean isReloading = false;
+    protected final int reloadTimeMs;
+    protected int reloadProgress = 0;
+    protected boolean isReloading = false;
 
-    public Sound shootSound;
-    public Sound reloadSound;
+    protected Sound shootSound;
+    protected Sound reloadSound;
 
     public BasicGun(int damage, int attacksPerMinute, int reserveAmmo, int magazineSize, int bulletsInMagazine, int reloadTimeMs, WeaponSlot weaponSlot, AmmoType ammoType, WeaponType weaponType) {
         super(damage, attacksPerMinute, weaponSlot, ammoType, weaponType);
@@ -26,24 +27,42 @@ public class BasicGun extends BasicWeapon {
         this.reloadTimeMs = reloadTimeMs;
     }
 
-    public boolean attack() {
-        if(bulletsInMagazine <= 0) return false;
+    @Override
+    public int getAmmoInMagazine() {
+        return bulletsInMagazine;
+    }
 
-        if(System.currentTimeMillis() - lastAttack < 60000 / attacksPerMinute) return false;
+    @Override
+    public int getReserveAmmo() {
+        return reserveAmmo;
+    }
+
+    public void attack() {
+        if(bulletsInMagazine <= 0 || isReloading) return;
+
+        if(System.currentTimeMillis() - lastAttack < 60000 / attacksPerMinute) return;
         else lastAttack = System.currentTimeMillis();
 
         bulletsInMagazine--;
-
+        EntityHandler.getInstance().addBullet(damage);
         shootSound.play();
-
-        return true;
     }
 
-    public boolean beginReload() {
-        if(reserveAmmo <= 0 || isReloading || bulletsInMagazine == magazineSize) return false;
-        isReloading = true;
-        reloadSound.play();
-        return true;
+    public void reload() {
+        if(reserveAmmo > 0 && !isReloading && bulletsInMagazine < magazineSize) {
+            isReloading = true;
+            reloadSound.play();
+        }
+    }
+
+    public void update(float delta) {
+        if(isReloading) {
+            reloadProgress += delta;
+
+            if(reloadProgress >= reloadTimeMs) {
+                endReload();
+            }
+        }
     }
 
     public void endReload() {
@@ -62,5 +81,9 @@ public class BasicGun extends BasicWeapon {
 
     public boolean isReloading() {
         return isReloading;
+    }
+
+    public void addAmmo(int amount) {
+        reserveAmmo += amount;
     }
 }

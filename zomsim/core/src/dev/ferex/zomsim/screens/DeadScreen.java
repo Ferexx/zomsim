@@ -10,9 +10,8 @@ import dev.ferex.zomsim.ZomSim;
 
 public class DeadScreen extends MenuScreen {
 
-    public DeadScreen(final ZomSim game) {
-        super(game);
-
+    public DeadScreen() {
+        final ZomSim game = ZomSim.getInstance();
         final Label.LabelStyle titleLabelStyle = new Label.LabelStyle();
         titleLabelStyle.font = font;
         final Label titleLabel = new Label("You Died", titleLabelStyle);
@@ -26,7 +25,8 @@ public class DeadScreen extends MenuScreen {
         playButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game));
+                GameScreen.clearInstance();
+                game.setScreen(GameScreen.getInstance());
                 dispose();
             }
             @Override
@@ -37,7 +37,7 @@ public class DeadScreen extends MenuScreen {
         mainMenuButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new MainMenuScreen(game));
+                game.setScreen(new MainMenuScreen());
                 dispose();
             }
             @Override
@@ -76,6 +76,7 @@ public class DeadScreen extends MenuScreen {
     public void render(float delta) {
         super.render(delta);
 
+        ZomSim game = ZomSim.getInstance();
         game.batch.begin();
         game.batch.end();
     }

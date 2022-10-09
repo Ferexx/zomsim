@@ -4,15 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import dev.ferex.zomsim.EntityHandler;
 import dev.ferex.zomsim.ZomSim;
-import dev.ferex.zomsim.screens.GameScreen;
-import dev.ferex.zomsim.weapons.BasicWeapon;
+import dev.ferex.zomsim.characters.Player;
+import dev.ferex.zomsim.weapons.Weapon;
+import dev.ferex.zomsim.world.WorldManager;
 
-public class WeaponSpawn extends BasicWorldItem implements InteractableInterface {
-    public BasicWeapon weapon;
+public class WeaponSpawn extends BasicWorldItem {
+    public Weapon weapon;
 
-    public WeaponSpawn(GameScreen screen, int xPos, int yPos, int width, int height, BasicWeapon weapon) {
-        super(screen, xPos, yPos, width, height);
+    public WeaponSpawn(int xPos, int yPos, int width, int height, Weapon weapon) {
+        super(xPos, yPos, width, height);
         fixture.setUserData(this);
         setBounds(0, 0, 8, 8);
         setOriginCenter();
@@ -20,7 +22,7 @@ public class WeaponSpawn extends BasicWorldItem implements InteractableInterface
         this.weapon = weapon;
         setCategoryFilter(ZomSim.WEAPON_BIT);
 
-        switch (weapon.weaponType) {
+        switch (weapon.getType()) {
             case PISTOL:
                 set(new Sprite(new Texture(Gdx.files.internal("sprites/guns/glock.png"))));
                 setPosition(xPos - 2, yPos - 1);
@@ -40,7 +42,7 @@ public class WeaponSpawn extends BasicWorldItem implements InteractableInterface
     }
 
     public void interact() {
-        screen.player.addWeapon(weapon);
+        Player.getInstance().addWeapon(weapon);
         destroy();
     }
 
@@ -49,10 +51,10 @@ public class WeaponSpawn extends BasicWorldItem implements InteractableInterface
     }
 
     public void destroy() {
-        screen.world.destroyBody(body);
+        WorldManager.getInstance().getWorld().destroyBody(body);
         drawingAnnotation = false;
         visible = false;
-        screen.entityHandler.weapons.removeValue(this, false);
+        EntityHandler.getInstance().weapons.removeValue(this, false);
     }
 
 
